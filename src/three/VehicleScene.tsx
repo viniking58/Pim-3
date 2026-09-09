@@ -37,10 +37,11 @@ function ResponsiveCamera() {
 
   useEffect(() => {
     const aspect = size.width / Math.max(1, size.height)
-    const distance = aspect < 0.9 ? 11.4 : aspect < 1.35 ? 9.6 : 8.2
-    const direction = new THREE.Vector3(0.62, 0.36, 0.7).normalize()
+    const distance = aspect < 0.9 ? 9 : aspect < 1.35 ? 7.4 : 6.3
+    // Ângulo de foto de produto: baixo o bastante para mostrar o costado.
+    const direction = new THREE.Vector3(0.68, 0.3, 0.67).normalize()
     camera.position.copy(direction.multiplyScalar(distance))
-    camera.lookAt(0, 0.82, 0)
+    camera.lookAt(0, 0.66, 0)
     camera.updateProjectionMatrix()
   }, [camera, size])
 
@@ -99,7 +100,7 @@ export function VehicleScene({ config, active = true }: { config: SceneConfig; a
       // Congela o loop de render quando a seção sai da tela: nada de gastar
       // GPU (e bateria) desenhando um palco que ninguém está vendo.
       frameloop={active ? 'always' : 'never'}
-      dpr={[1, 1.8]}
+      dpr={[1, 2]}
       gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, preserveDrawingBuffer: false }}
       onCreated={({ gl }) => {
         gl.toneMappingExposure = 1.05
@@ -116,7 +117,7 @@ export function VehicleScene({ config, active = true }: { config: SceneConfig; a
         enableZoom={false}
         minPolarAngle={Math.PI * 0.16}
         maxPolarAngle={Math.PI * 0.49}
-        target={[0, 0.82, 0]}
+        target={[0, 0.66, 0]}
         enableDamping
         dampingFactor={0.07}
         rotateSpeed={0.65}

@@ -18,7 +18,7 @@ type Preset = {
 
 export const ENV_PRESETS: Record<EnvId, Preset> = {
   // Ciclorama branco: o mesmo enquadramento das fotos de catálogo da fábrica.
-  catalog: { key: '#ffffff', fill: '#f4f7fc', rim: '#ffffff', ambient: 1.05, floor: '#eef1f6', fog: '#f2f4f8', shadow: 0.4 },
+  catalog: { key: '#ffffff', fill: '#f4f7fc', rim: '#ffffff', ambient: 0.5, floor: '#eef1f6', fog: '#f2f4f8', shadow: 0.4 },
   studio: { key: '#ffffff', fill: '#dfe6f2', rim: '#eef3fb', ambient: 0.6, floor: '#0c0e13', fog: '#08090c', shadow: 0.72 },
   sunset: { key: '#ffe2bd', fill: '#ffab86', rim: '#ff6a3d', ambient: 0.5, floor: '#150d0c', fog: '#180d0a', shadow: 0.68 },
   night: { key: '#c8dcff', fill: '#4a6a9e', rim: '#ff4a33', ambient: 0.34, floor: '#05070c', fog: '#04050a', shadow: 0.6 },
@@ -63,23 +63,41 @@ export function Stage3D({ env, moving }: { env: EnvId; moving: boolean }) {
       <ambientLight intensity={preset.ambient} />
       {/* Rebatedor de chão: sem ele o flanco inferior da lataria fecha em
           preto e a cor escolhida some — o mesmo truque de um estúdio real. */}
-      <hemisphereLight args={[preset.key, '#3a4150', env === 'night' ? 0.45 : 0.85]} />
+      <hemisphereLight args={[preset.key, '#3a4150', env === 'night' ? 0.45 : env === 'catalog' ? 0.5 : 0.85]} />
       <directionalLight
         position={[4.5, 7, 4]}
-        intensity={env === 'night' ? 1.4 : env === 'catalog' ? 3.1 : 2.6}
+        intensity={env === 'night' ? 1.4 : env === 'catalog' ? 1.9 : 2.6}
         color={preset.key}
         castShadow
-        shadow-mapSize={[1024, 1024]}
+        shadow-mapSize={[2048, 2048]}
         shadow-bias={-0.0005}
       >
-        <orthographicCamera attach="shadow-camera" args={[-5, 5, 5, -5, 0.1, 20]} />
+        <orthographicCamera attach="shadow-camera" args={[-3.4, 3.4, 3.4, -3.4, 0.1, 20]} />
       </directionalLight>
-      <directionalLight position={[-6, 3, -3]} intensity={env === 'catalog' ? 2 : 1.1} color={preset.fill} />
+      <directionalLight position={[-6, 3, -3]} intensity={env === 'catalog' ? 1.1 : 1.1} color={preset.fill} />
       <spotLight position={[-3, 4.5, -6]} angle={0.7} penumbra={1} intensity={12} color={preset.rim} />
 
       {/* Softboxes refletidas na lataria */}
       <Environment resolution={256}>
-        <Lightformer form="rect" intensity={env === 'night' ? 1.2 : env === 'catalog' ? 5.5 : 3.4} position={[0, 5, -2]} scale={[9, 3, 1]} color={preset.key} />
+        {/* Duas faixas estreitas no lugar de uma softbox larga: numa
+            superfície lisa virada para cima, um retângulo grande é espelhado
+            inteiro e lava a cor. Em faixa, ele vira um risco de brilho. */}
+        <Lightformer
+          form="rect"
+          intensity={env === 'night' ? 2 : env === 'catalog' ? 5 : 6}
+          position={[0, 5, -1.7]}
+          rotation-x={Math.PI / 2}
+          scale={[10, 0.55, 1]}
+          color={preset.key}
+        />
+        <Lightformer
+          form="rect"
+          intensity={env === 'night' ? 1.4 : env === 'catalog' ? 3.4 : 4}
+          position={[0, 5, 1.4]}
+          rotation-x={Math.PI / 2}
+          scale={[10, 0.4, 1]}
+          color={preset.key}
+        />
         <Lightformer form="rect" intensity={2} position={[-5, 2, 2]} scale={[4, 5, 1]} rotation-y={Math.PI / 2} color={preset.fill} />
         <Lightformer form="rect" intensity={2.4} position={[5, 2, 2]} scale={[4, 5, 1]} rotation-y={-Math.PI / 2} color={preset.rim} />
         <Lightformer form="circle" intensity={env === 'night' ? 1.4 : env === 'catalog' ? 4.5 : 2.6} position={[0, -2.4, 0]} scale={8} rotation-x={Math.PI / 2} color={env === 'catalog' ? '#dfe4ec' : '#7d879a'} />
@@ -93,6 +111,8 @@ export function Stage3D({ env, moving }: { env: EnvId; moving: boolean }) {
           color={preset.floor}
           roughness={env === 'catalog' ? 0.94 : 0.72}
           metalness={env === 'catalog' ? 0.02 : 0.16}
+          emissive={preset.floor}
+          emissiveIntensity={env === 'catalog' ? 0.62 : 0}
         />
       </mesh>
 
