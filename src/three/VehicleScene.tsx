@@ -6,6 +6,7 @@ import { Stage3D, type EnvId } from './Stage3D'
 import { JetSki3D } from './JetSki3D'
 import { Utv3D } from './Utv3D'
 import { Atv3D } from './Atv3D'
+import { GltfVehicle, type GltfSlots } from './GltfVehicle'
 import { buildPaint, type FinishId } from './materials'
 
 export type ModelId = 'jetski' | 'utv' | 'utility' | 'atv'
@@ -18,6 +19,12 @@ export type SceneConfig = {
   env: EnvId
   moving: boolean
   autoRotate: boolean
+  /**
+   * Caminho de um .glb para este modelo. Quando presente, o arquivo real
+   * substitui a geometria procedural — mesmo palco, mesmas opções de cor.
+   */
+  asset?: string
+  slots?: GltfSlots
 }
 
 /**
@@ -55,14 +62,28 @@ function Turntable({ config }: { config: SceneConfig }) {
 
   return (
     <group ref={group}>
-      {config.model === 'jetski' && (
+      {config.asset ? (
+        <GltfVehicle
+          url={config.asset}
+          paint={paint}
+          accent={config.accent}
+          moving={config.moving}
+          {...config.slots}
+        />
+      ) : null}
+
+      {!config.asset && config.model === 'jetski' && (
         <JetSki3D paint={paint} accent={config.accent} moving={config.moving} />
       )}
-      {config.model === 'utv' && <Utv3D paint={paint} accent={config.accent} moving={config.moving} />}
-      {config.model === 'utility' && (
+      {!config.asset && config.model === 'utv' && (
+        <Utv3D paint={paint} accent={config.accent} moving={config.moving} />
+      )}
+      {!config.asset && config.model === 'utility' && (
         <Utv3D paint={paint} accent={config.accent} moving={config.moving} utility />
       )}
-      {config.model === 'atv' && <Atv3D paint={paint} accent={config.accent} moving={config.moving} />}
+      {!config.asset && config.model === 'atv' && (
+        <Atv3D paint={paint} accent={config.accent} moving={config.moving} />
+      )}
     </group>
   )
 }

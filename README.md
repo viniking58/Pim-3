@@ -82,10 +82,53 @@ vivo.
   `clearcoat` do material físico em tempo real.
 - **Cor de rodas e detalhes**, aplicada a aros, cubos, painéis de porta e ao
   grafismo do flanco do casco.
-- **Três ambientes** (estúdio, pôr do sol, noite) que trocam luz-chave,
-  preenchimento, contraluz, névoa e piso.
+- **Quatro ambientes** — catálogo (ciclorama branco, o enquadramento das fotos
+  de fábrica), estúdio, pôr do sol e noite — trocando luz-chave, preenchimento,
+  contraluz, névoa, piso, sombra de contato e exposição.
 - **Modo "em movimento"**: rodas girando, carroceria flutuando, rastros no
   piso e espuma de esteira atrás do jet ski.
+
+### Colocando os modelos reais do fabricante
+
+A geometria escrita à mão tem um teto: ela chega a um 3D estilizado
+convincente, **não a uma foto de catálogo**. Quando você tiver o material
+oficial, existem dois caminhos — os dois já suportados:
+
+**1. Modelo 3D real (.glb) — gira em 360° e continua configurável**
+
+```bash
+# coloque o arquivo em public/models/
+public/models/rxp-x.glb
+```
+
+```ts
+// src/data/configurator.ts
+{
+  id: 'jetski',
+  name: 'Sea-Doo RXP-X',
+  asset: '/models/rxp-x.glb',
+  slots: {
+    paintSlots:  ['deck', 'body'],   // materiais que recebem a pintura
+    accentSlots: ['seat', 'rim'],    // materiais que recebem o destaque
+    wheelSlots:  ['wheel'],          // nós que giram no modo "em movimento"
+  },
+}
+```
+
+Só isso. [`GltfVehicle`](src/three/GltfVehicle.tsx) centraliza o modelo, apoia
+no piso, reescala para o palco e aplica as cores do configurador nos materiais
+cujo nome casa com os `slots` — preservando as texturas do arquivo. O eixo de
+rotação de cada roda é deduzido pela menor dimensão da sua caixa envolvente.
+Sem `asset`, o modelo procedural continua valendo como reserva.
+
+**2. Fotos oficiais em 360° — é assim que a Porsche faz**
+
+O configurador da Porsche não é 3D em tempo real: são sequências de imagens
+pré-renderizadas, uma por ângulo e por combinação de cor. Se você tiver acesso
+ao portal de mídia da BRP (a maioria dos concessionários autorizados tem), esse
+é o caminho que dá fidelidade fotográfica de verdade. Vale trocar o palco WebGL
+por um visualizador de sequência de imagens nos modelos que tiverem esse
+material.
 
 ### Por que os modelos são autorais
 
@@ -100,7 +143,11 @@ pelo proxy deste ambiente. Em vez disso, a geometria é **construída em código
   automaticamente, senão as normais apontam para dentro e a peça renderiza
   vazada.
 - `hullSection` gera o casco (convés plano, quina viva e fundo em V);
-  `boxSection` gera chassis e capôs (superelipse).
+  `boxSection` gera painéis, chassis e capôs (superelipse).
+- O jet ski é montado como um veículo de verdade: **casco escuro + convés
+  colorido + selim no tom de destaque**, com a divisão de cor caindo na linha
+  do costado. É essa arquitetura de peças — e não o formato geral — que faz a
+  silhueta ler como um Sea-Doo.
 - [`Wheel3D`](src/three/Wheel3D.tsx) monta o pneu como tubo aberto, com anéis
   de flanco, tacos em duas fileiras alternadas, aro, raios e cubo.
 - [`Stage3D`](src/three/Stage3D.tsx) monta a iluminação: luz-chave, rebatedor

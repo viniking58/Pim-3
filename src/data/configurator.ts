@@ -1,4 +1,5 @@
 import type { ModelId } from '../three/VehicleScene'
+import type { GltfSlots } from '../three/GltfVehicle'
 import type { FinishId } from '../three/materials'
 import type { EnvId } from '../three/Stage3D'
 
@@ -8,6 +9,14 @@ export type ModelOption = {
   family: string
   blurb: string
   specs: { label: string; value: string }[]
+  /**
+   * Caminho de um .glb em `public/` — por exemplo `/models/rxp-x.glb`.
+   * Com ele preenchido, o modelo real do fabricante entra no lugar da
+   * geometria procedural, sem mais nenhuma mudança de código.
+   */
+  asset?: string
+  /** Quais materiais do .glb recebem a pintura e a cor de destaque. */
+  slots?: GltfSlots
 }
 
 export const MODEL_OPTIONS: ModelOption[] = [
@@ -77,10 +86,12 @@ export const ACCENTS = [
   { id: 'grafite', name: 'Grafite', hex: '#39404d' },
   { id: 'vermelho', name: 'Vermelho', hex: '#ff2d18' },
   { id: 'amarelo', name: 'Amarelo', hex: '#ffd100' },
+  { id: 'laranja', name: 'Laranja', hex: '#ff7a18' },
   { id: 'prata', name: 'Prata', hex: '#c9d0dd' },
 ] as const
 
 export const ENVIRONMENTS: { id: EnvId; name: string }[] = [
+  { id: 'catalog', name: 'Catálogo' },
   { id: 'studio', name: 'Estúdio' },
   { id: 'sunset', name: 'Pôr do sol' },
   { id: 'night', name: 'Noite' },

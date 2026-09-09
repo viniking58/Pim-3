@@ -42,8 +42,18 @@ export function Configurator() {
   const finishName = FINISHES.find((option) => option.id === finish)?.name ?? ''
 
   const config: SceneConfig = useMemo(
-    () => ({ model, color: paint, finish, accent, env, moving, autoRotate }),
-    [model, paint, finish, accent, env, moving, autoRotate],
+    () => ({
+      model,
+      color: paint,
+      finish,
+      accent,
+      env,
+      moving,
+      autoRotate,
+      asset: active.asset,
+      slots: active.slots,
+    }),
+    [model, paint, finish, accent, env, moving, autoRotate, active],
   )
 
   const summary = `${active.name} · ${paintName} ${finishName.toLowerCase()} · detalhes ${accentName.toLowerCase()}`
