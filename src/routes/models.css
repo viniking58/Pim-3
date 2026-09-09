@@ -127,5 +127,5 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-pill);
   color: var(--ink-soft);
-  background: var(--paper);
+  background: var(--paper-raised);
 }

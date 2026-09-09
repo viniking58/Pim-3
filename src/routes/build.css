@@ -105,7 +105,7 @@
   text-align: left;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  background: var(--paper);
+  background: var(--paper-raised);
   transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
 }
 
@@ -194,7 +194,7 @@
   text-align: left;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  background: var(--paper);
+  background: var(--paper-raised);
   transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
 }
 

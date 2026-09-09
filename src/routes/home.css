@@ -115,12 +115,12 @@
   gap: 0.55rem;
   height: 100%;
   padding: clamp(1.4rem, 2.5vw, 2rem) clamp(1.2rem, 2vw, 1.8rem);
-  background: var(--paper);
+  background: var(--paper-raised);
   transition: background-color var(--dur) var(--ease-out);
 }
 
 .platform:hover {
-  background: var(--paper-raised);
+  background: var(--paper-sunk);
 }
 
 .platform__brand {

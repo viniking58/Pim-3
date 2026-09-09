@@ -24,12 +24,12 @@
   gap: 0.6rem;
   height: 100%;
   padding: clamp(1.4rem, 2.6vw, 2.1rem);
-  background: var(--paper);
+  background: var(--paper-raised);
   transition: background-color var(--dur) var(--ease-out);
 }
 
 .editorial-item:hover {
-  background: var(--paper-raised);
+  background: var(--paper-sunk);
 }
 
 .editorial-item p {
@@ -159,16 +159,9 @@
 .field select,
 .field textarea {
   width: 100%;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 0.85rem;
   font-size: var(--fs-body);
-  transition: border-color var(--dur) var(--ease-out);
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  border-bottom-color: var(--brand-action);
+  transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
 }
 
 .field textarea {
@@ -202,21 +195,25 @@
   background: var(--paper-raised);
 }
 
+.contactinfo > div {
+  /* Rótulo e valor empilham: `.label` é inline e colava no link ao lado. */
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-items: flex-start;
+}
+
 .contactinfo address {
   font-style: normal;
   font-size: var(--fs-small);
   line-height: 1.7;
-  margin-top: 0.35rem;
 }
 
 .contactinfo p {
   font-size: var(--fs-small);
-  margin-top: 0.35rem;
 }
 
 .contactinfo a {
-  display: inline-block;
-  margin-top: 0.35rem;
   font-size: var(--fs-small);
   border-bottom: 1px solid var(--line);
   overflow-wrap: anywhere;
@@ -224,6 +221,7 @@
 
 .contactinfo__social {
   display: flex;
+  flex-direction: row;
   gap: 1.2rem;
   padding-top: 1rem;
   border-top: 1px solid var(--line);

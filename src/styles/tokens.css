@@ -20,10 +20,14 @@
   /* --- Papel e tinta -----------------------------------------------------
      Neutros escolhidos, não herdados: o papel tem um viés quente mínimo e a
      tinta é um preto azulado. Cinza puro lê como falta de decisão. */
-  --paper: #f4f4f2;
-  --paper-raised: #fbfbfa;
-  --paper-sunk: #e7e8e4;
-  --paper-line: #d5d7d1;
+  /* Escala de superfície com degraus que realmente se distinguem: o chão da
+     página é levemente rebaixado, e o que precisa subir vai para o branco.
+     Antes o fundo e os painéis eram quase a mesma cor — daí a sensação de
+     "tudo branco", sem saber onde termina o fundo e começa o conteúdo. */
+  --paper: #eeeeec;
+  --paper-raised: #ffffff;
+  --paper-sunk: #e2e3de;
+  --paper-line: #d0d2cb;
 
   --ink: #14161a;
   --ink-soft: #5b616b;

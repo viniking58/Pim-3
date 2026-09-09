@@ -3,6 +3,7 @@ import { NavLink, Outlet, Link } from 'react-router-dom'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
 import { MagneticButton } from '../motion/MagneticButton'
 import { RouteTransition } from './RouteTransition'
+import { PageBackground } from './PageBackground'
 import { CONTACT } from '../../data/models'
 import './shell.css'
 
@@ -30,6 +31,8 @@ export function Shell() {
 
   return (
     <>
+      <PageBackground />
+
       <a className="skip-link" href="#conteudo">
         Ir para o conteúdo
       </a>

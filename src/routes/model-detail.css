@@ -175,12 +175,12 @@
   gap: 0.4rem;
   height: 100%;
   padding: 1.4rem;
-  background: var(--paper);
+  background: var(--paper-raised);
   transition: background-color var(--dur) var(--ease-out);
 }
 
 .related__item:hover {
-  background: var(--paper-raised);
+  background: var(--paper-sunk);
 }
 
 .related__name {
