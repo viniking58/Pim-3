@@ -1,0 +1,321 @@
+/* --- Trilha de etapas ------------------------------------------------------- */
+.steps-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-bottom: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+.steps-rail__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.steps-rail__btn .data {
+  font-size: var(--fs-data);
+  color: var(--ink-faint);
+}
+
+.steps-rail__btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.steps-rail__btn.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.steps-rail__btn.is-active .data {
+  color: var(--brand-action);
+}
+
+/* --- Layout ------------------------------------------------------------------ */
+.build__layout {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  align-items: start;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+@media (min-width: 1000px) {
+  .build__layout {
+    grid-template-columns: minmax(0, 1.5fr) minmax(340px, 0.9fr);
+  }
+}
+
+.build__stage {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-stage);
+}
+
+.build__panel {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  overflow: hidden;
+}
+
+.build__step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: clamp(1.2rem, 2.4vw, 1.8rem);
+  min-height: 340px;
+}
+
+/* --- Escolhas ---------------------------------------------------------------- */
+.choice {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.choice__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.choice__inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+
+.option:hover {
+  border-color: var(--ink);
+}
+
+.option.is-active {
+  border-color: var(--brand-action);
+  background: color-mix(in srgb, var(--brand-action) 7%, transparent);
+}
+
+.option strong {
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.option span {
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.swatch {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(70% 70% at 32% 26%, rgb(255 255 255 / 0.5), transparent 58%), var(--swatch);
+  box-shadow: inset 0 0 0 1px rgb(20 22 26 / 0.16);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.swatch:hover {
+  transform: scale(1.1);
+}
+
+.swatch.is-active::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border: 1.5px solid var(--brand-action);
+  border-radius: 50%;
+}
+
+.chip {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.chip:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.chip.is-active {
+  border-color: var(--brand-action);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--brand-action) 8%, transparent);
+}
+
+/* --- Acessórios --------------------------------------------------------------- */
+.accessories {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.accessories ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.accessory {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: start;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+
+.accessory:hover {
+  border-color: var(--ink);
+}
+
+.accessory.is-on {
+  border-color: var(--brand-action);
+  background: color-mix(in srgb, var(--brand-action) 6%, transparent);
+}
+
+.accessory__check {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border: 1.5px solid var(--ink-faint);
+  border-radius: 3px;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.accessory.is-on .accessory__check {
+  background: var(--brand-action);
+  border-color: var(--brand-action);
+  background-image: linear-gradient(45deg, transparent 44%, #fff 44%, #fff 56%, transparent 56%),
+    linear-gradient(-45deg, transparent 44%, #fff 44%, #fff 56%, transparent 56%);
+  background-size: 60% 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.accessory__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.accessory__body strong {
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.accessory__body span {
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.accessory__tag {
+  color: var(--brand-action);
+  white-space: nowrap;
+}
+
+/* --- Resumo -------------------------------------------------------------------- */
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.summary dl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.summary dl > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.summary dd {
+  font-size: var(--fs-small);
+}
+
+.summary__note {
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+/* --- Rodapé do painel ---------------------------------------------------------- */
+.build__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem clamp(1.2rem, 2.4vw, 1.8rem);
+  border-top: 1px solid var(--line);
+  background: var(--paper-sunk);
+}
+
+.build__foot > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.build__foot strong {
+  font-size: var(--fs-small);
+}
+
+.build__code {
+  letter-spacing: 0.14em;
+}
+
+.build__next {
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-data);
+  font-size: var(--fs-data);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.build__next:hover {
+  background: var(--brand-action);
+}

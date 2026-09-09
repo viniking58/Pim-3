@@ -1,0 +1,78 @@
+.mag-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  isolation: isolate;
+  font-family: var(--font-data);
+  font-size: var(--fs-data);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.mag-btn__label,
+.mag-btn__arrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+}
+
+.mag-btn__arrow {
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.mag-btn:hover .mag-btn__arrow {
+  transform: translate(3px, -3px);
+}
+
+/* Preenchimento que sobe no hover — o único gesto do botão. */
+.mag-btn__fill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.mag-btn:hover .mag-btn__fill {
+  transform: scaleY(1);
+}
+
+.mag-btn--solid {
+  background: var(--brand-action);
+  color: #fff;
+}
+
+.mag-btn--solid .mag-btn__fill {
+  background: var(--ink);
+}
+
+.mag-btn--ghost {
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.mag-btn--ghost .mag-btn__fill {
+  background: var(--ink);
+}
+
+.mag-btn--ghost:hover {
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.on-stage .mag-btn--ghost .mag-btn__fill {
+  background: var(--stage-ink);
+}
+
+.on-stage .mag-btn--ghost:hover {
+  border-color: var(--stage-ink);
+  color: var(--stage);
+}

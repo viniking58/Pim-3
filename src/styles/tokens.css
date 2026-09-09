@@ -1,0 +1,107 @@
+/* =========================================================================
+   P1 MOTORSPORTS — SISTEMA VISUAL
+   -------------------------------------------------------------------------
+   Direção: páginas editoriais claras, com o 3D vivendo em palcos escuros de
+   sangria. Toda a ousadia é gasta nesse contraste — o vermelho é cor de ação,
+   não de decoração.
+
+   Para aplicar as cores oficiais da marca, altere apenas os valores de
+   --brand-* abaixo. Nenhum componente usa cor literal.
+   ========================================================================= */
+
+:root {
+  /* --- Marca ------------------------------------------------------------- */
+  --brand-action: #d81e05; /* botões, foco, estado ativo — só isso */
+  --brand-action-deep: #a71504;
+  --brand-marine: #0a5c8c; /* linha náutica  (Sea-Doo) */
+  --brand-terra: #a8710f; /* linha off-road (Can-Am)  */
+  --brand-switch: #1c7a5e; /* linha pontoon  (Switch)  */
+
+  /* --- Papel e tinta -----------------------------------------------------
+     Neutros escolhidos, não herdados: o papel tem um viés quente mínimo e a
+     tinta é um preto azulado. Cinza puro lê como falta de decisão. */
+  /* Escala de superfície com degraus que realmente se distinguem: o chão da
+     página é levemente rebaixado, e o que precisa subir vai para o branco.
+     Antes o fundo e os painéis eram quase a mesma cor — daí a sensação de
+     "tudo branco", sem saber onde termina o fundo e começa o conteúdo. */
+  --paper: #eeeeec;
+  --paper-raised: #ffffff;
+  --paper-sunk: #e2e3de;
+  --paper-line: #d0d2cb;
+
+  --ink: #14161a;
+  --ink-soft: #5b616b;
+  --ink-faint: #8d939c;
+
+  /* --- Palco: onde o 3D vive --------------------------------------------- */
+  --stage: #0b0d11;
+  --stage-raised: #141821;
+  --stage-line: rgb(255 255 255 / 0.14);
+  --stage-ink: #f2f3f5;
+  --stage-ink-soft: #9aa2ae;
+
+  /* --- Papéis semânticos -------------------------------------------------- */
+  --bg: var(--paper);
+  --text: var(--ink);
+  --text-soft: var(--ink-soft);
+  --line: var(--paper-line);
+
+  /* --- Tipografia ---------------------------------------------------------
+     Trio deliberado. Archivo é um grotesco industrial sem o desgaste de
+     Anton/Bebas; Martian Mono tem a largura técnica que cai bem em ficha de
+     especificação. */
+  --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-data: 'Martian Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Escala tipográfica — uma só, e o site inteiro fica nela. */
+  --fs-mega: clamp(3.2rem, 11vw, 11rem);
+  --fs-h1: clamp(2.5rem, 6.4vw, 5.4rem);
+  --fs-h2: clamp(1.9rem, 4vw, 3.4rem);
+  --fs-h3: clamp(1.25rem, 2vw, 1.75rem);
+  --fs-lead: clamp(1.05rem, 1.5vw, 1.3rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-data: 0.7rem;
+
+  /* --- Layout -------------------------------------------------------------- */
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --maxw: 1500px;
+  --maxw-text: 68ch;
+  --section-y: clamp(4.5rem, 10vw, 9rem);
+
+  --radius-sm: 4px;
+  --radius: 10px;
+  --radius-pill: 999px;
+
+  /* --- Elevação ------------------------------------------------------------
+     Gasta por papel, não carimbada em todo bloco. */
+  --shadow-lift: 0 1px 2px rgb(20 22 26 / 0.06), 0 8px 24px -12px rgb(20 22 26 / 0.18);
+  --shadow-stage: 0 40px 90px -50px rgb(0 0 0 / 0.9);
+
+  /* --- Movimento ------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --dur-fast: 200ms;
+  --dur: 460ms;
+  --dur-slow: 900ms;
+
+  --z-stage: 0;
+  --z-content: 1;
+  --z-nav: 400;
+  --z-overlay: 500;
+  --z-cursor: 900;
+}
+
+/* Blocos em palco escuro re-declaram os papéis semânticos, e tudo dentro
+   deles segue funcionando sem exceção por componente. */
+.on-stage {
+  --bg: var(--stage);
+  --text: var(--stage-ink);
+  --text-soft: var(--stage-ink-soft);
+  --line: var(--stage-line);
+  --paper-raised: var(--stage-raised);
+  --paper-sunk: #090b0e;
+  color: var(--text);
+  background: var(--bg);
+}

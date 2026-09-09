@@ -1,0 +1,228 @@
+/* Grade editorial com divisórias, sem card em cima de card. */
+.editorial-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+
+@media (min-width: 700px) {
+  .editorial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .editorial-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.editorial-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: clamp(1.4rem, 2.6vw, 2.1rem);
+  background: var(--paper-raised);
+  transition: background-color var(--dur) var(--ease-out);
+}
+
+.editorial-item:hover {
+  background: var(--paper-sunk);
+}
+
+.editorial-item p {
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 34ch;
+}
+
+.quote__text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.14;
+}
+
+.manifesto {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.6vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.16;
+  text-transform: none;
+  max-width: 24ch;
+}
+
+.visit {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 760px) {
+  .visit {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.visit address {
+  font-style: normal;
+  line-height: 1.7;
+  margin-top: 0.5rem;
+}
+
+.visit p {
+  margin-top: 0.5rem;
+}
+
+.visit a {
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+/* --- Seminovos ---------------------------------------------------------------- */
+.preowned {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .preowned {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+}
+
+.checks li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-small);
+}
+
+.checks li:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.checks .data {
+  font-size: var(--fs-data);
+  color: var(--brand-action);
+}
+
+.stocknote {
+  max-width: 60ch;
+}
+
+/* --- Contato -------------------------------------------------------------------- */
+.contactgrid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .contactgrid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.75fr);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  font-size: var(--fs-body);
+  transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.form__submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form__sent {
+  color: var(--brand-action);
+  max-width: 28ch;
+}
+
+.contactinfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  padding: clamp(1.3rem, 2.6vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+}
+
+.contactinfo > div {
+  /* Rótulo e valor empilham: `.label` é inline e colava no link ao lado. */
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-items: flex-start;
+}
+
+.contactinfo address {
+  font-style: normal;
+  font-size: var(--fs-small);
+  line-height: 1.7;
+}
+
+.contactinfo p {
+  font-size: var(--fs-small);
+}
+
+.contactinfo a {
+  font-size: var(--fs-small);
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+.contactinfo__social {
+  display: flex;
+  flex-direction: row;
+  gap: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}

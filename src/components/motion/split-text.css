@@ -1,0 +1,21 @@
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* Folga para acentos (Á, Ã, Ó) e cedilha não serem cortados pela máscara,
+     compensada por margens negativas para não alterar o ritmo vertical. */
+  padding-top: 0.2em;
+  padding-bottom: 0.14em;
+  margin-top: -0.2em;
+  margin-bottom: -0.14em;
+}
+
+.split-word:not(:last-child) {
+  margin-right: 0.24em;
+}
+
+.split-word__inner {
+  display: inline-block;
+  transform-origin: left bottom;
+  will-change: transform;
+}

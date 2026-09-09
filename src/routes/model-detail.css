@@ -1,0 +1,196 @@
+.modelhead {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .modelhead {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+}
+
+.modelhead__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.modelhead__back {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.modelhead__back:hover {
+  color: var(--brand-action);
+}
+
+.modelhead__title {
+  font-size: var(--fs-h1);
+}
+
+.modelhead__art {
+  max-width: 560px;
+  justify-self: center;
+}
+
+.stage__caption-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* --- Corpo --------------------------------------------------------------- */
+.modelbody {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+@media (min-width: 900px) {
+  .modelbody {
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.8fr);
+  }
+}
+
+.modelbody__story {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modelbody__prose {
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+.highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.highlights li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.highlights li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 10px;
+  height: 2px;
+  background: var(--brand-action);
+}
+
+/* --- Motorização ---------------------------------------------------------- */
+.modelbody__engines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.engines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.engine {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 1rem;
+  align-items: baseline;
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+
+.engine:hover {
+  border-color: var(--ink);
+}
+
+.engine.is-active {
+  border-color: var(--brand-action);
+  background: color-mix(in srgb, var(--brand-action) 7%, transparent);
+}
+
+.engine__power {
+  grid-row: span 2;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.engine__power em {
+  font-style: normal;
+  font-size: 0.4em;
+  color: var(--brand-action);
+}
+
+.engine__name {
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+
+.engine__detail {
+  grid-column: 2;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.engine__note {
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+/* --- Relacionados --------------------------------------------------------- */
+.related {
+  display: grid;
+  gap: 1px;
+  margin-top: 1.2rem;
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+
+@media (min-width: 700px) {
+  .related {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  }
+}
+
+.related__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 100%;
+  padding: 1.4rem;
+  background: var(--paper-raised);
+  transition: background-color var(--dur) var(--ease-out);
+}
+
+.related__item:hover {
+  background: var(--paper-sunk);
+}
+
+.related__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.related__blurb {
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}

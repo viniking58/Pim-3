@@ -1,0 +1,19 @@
+.scroll-words {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 4.4vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.scroll-words__word {
+  display: inline-block;
+  margin-right: 0.28em;
+}
+
+.scroll-words__word > span {
+  display: inline-block;
+  will-change: opacity, transform;
+}
