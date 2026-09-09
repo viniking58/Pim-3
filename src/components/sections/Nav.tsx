@@ -5,10 +5,11 @@ import './nav.css'
 
 const LINKS = [
   { href: '#linha', label: 'A linha', index: '01' },
-  { href: '#experiencia', label: 'Experiência', index: '02' },
-  { href: '#servicos', label: 'Serviços', index: '03' },
-  { href: '#loja', label: 'A loja', index: '04' },
-  { href: '#contato', label: 'Contato', index: '05' },
+  { href: '#configurador', label: 'Configurador 3D', index: '02' },
+  { href: '#experiencia', label: 'Experiência', index: '03' },
+  { href: '#servicos', label: 'Serviços', index: '04' },
+  { href: '#loja', label: 'A loja', index: '05' },
+  { href: '#contato', label: 'Contato', index: '06' },
 ]
 
 export function Nav() {

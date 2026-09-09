@@ -16,6 +16,7 @@ const COLUMNS = [
   {
     title: 'Loja',
     links: [
+      { label: 'Configurador 3D', href: '#configurador' },
       { label: 'Experiência', href: '#experiencia' },
       { label: 'Serviços', href: '#servicos' },
       { label: 'Showroom', href: '#loja' },

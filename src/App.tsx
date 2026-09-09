@@ -7,6 +7,7 @@ import { Nav } from './components/sections/Nav'
 import { Hero } from './components/sections/Hero'
 import { BrandTicker } from './components/sections/BrandTicker'
 import { Fleet } from './components/sections/Fleet'
+import { Configurator } from './components/sections/Configurator'
 import { Showcase } from './components/sections/Showcase'
 import { Manifesto } from './components/sections/Manifesto'
 import { Services } from './components/sections/Services'
@@ -37,6 +38,7 @@ export default function App() {
         <Hero />
         <BrandTicker />
         <Fleet />
+        <Configurator />
         <Showcase />
         <Manifesto />
         <Services />
