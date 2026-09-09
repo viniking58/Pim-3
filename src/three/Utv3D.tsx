@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import { loft, boxSection, mix, type Section } from './geometry'
 import { Wheel3D } from './Wheel3D'
 import type { PaintProps } from './materials'
+import type { VisualParts } from './VehicleScene'
 
 const WHEEL_RADIUS = 0.52
 const WHEEL_WIDTH = 0.34
@@ -72,7 +73,8 @@ export function Utv3D({
   accent,
   moving,
   utility = false,
-}: PaintProps & { moving: boolean; utility?: boolean }) {
+  parts = {},
+}: PaintProps & { moving: boolean; utility?: boolean; parts?: VisualParts }) {
   const bodyGeometry = useMemo(() => loft(buildBody(utility)), [utility])
   const { sides, crosses, height, roofFront } = useMemo(() => cageCurves(utility), [utility])
   const wheels = useRef<THREE.Group>(null)
@@ -117,8 +119,8 @@ export function Utv3D({
         </group>
       )}
 
-      {/* Teto rígido da versão utilitária */}
-      {utility && (
+      {/* Teto rígido: de série no utilitário, acessório no esportivo */}
+      {(utility || parts.roof) && (
         <mesh position={[0.07, height - 0.02, 0]} castShadow>
           <boxGeometry args={[1.5, 0.05, 1.42]} />
           <meshPhysicalMaterial {...paint} />
@@ -153,11 +155,13 @@ export function Utv3D({
         <meshStandardMaterial color="#14171d" roughness={0.7} metalness={0.3} />
       </mesh>
 
-      {/* Barra de LEDs e faróis */}
-      <mesh position={[roofFront, height + 0.09, 0]}>
-        <boxGeometry args={[0.1, 0.08, 1.05]} />
-        <meshStandardMaterial color="#e8f2ff" emissive="#cfe4ff" emissiveIntensity={1.5} />
-      </mesh>
+      {/* Barra de LEDs (acessório) e faróis */}
+      {parts.lightbar && (
+        <mesh position={[roofFront, height + 0.09, 0]}>
+          <boxGeometry args={[0.1, 0.08, 1.05]} />
+          <meshStandardMaterial color="#e8f2ff" emissive="#cfe4ff" emissiveIntensity={1.5} />
+        </mesh>
+      )}
       {[-0.42, 0.42].map((z) => (
         <mesh key={z} position={[1.58, 0.74, z]} rotation={[0, Math.PI / 2, 0]}>
           <cylinderGeometry args={[0.12, 0.12, 0.06, 20]} />

@@ -1,21 +1,79 @@
-# P1 Motorsports — site premium
+# P1 Motorsports — site
 
-Site institucional de alta performance para a **P1 Motorsports**, concessionária
-autorizada BRP (Sea-Doo, Can-Am e Sea-Doo Switch) em São José dos Campos — SP.
+Site da **P1 Motorsports**, concessionária autorizada BRP (Sea-Doo, Can-Am e
+Sea-Doo Switch) em São José dos Campos — SP.
 
-Construído com **Vite + React + TypeScript**, animações com **Motion**
-(Framer Motion), scroll suave com **Lenis** e um **configurador 3D em WebGL**
-(three.js / react-three-fiber). Sem dependência de imagens externas: todos os
-veículos são modelos e ilustrações autorais.
+**Vite + React + TypeScript**, rotas com **react-router**, movimento com
+**Motion** (Framer Motion), scroll suave com **Lenis** e 3D em **three.js /
+react-three-fiber**. Sem imagens externas: os veículos são ilustrações e
+modelos autorais.
+
+## Direção visual
+
+Páginas editoriais **claras**, com o 3D vivendo em **palcos escuros de
+sangria** — o padrão do site da Porsche. Toda a ousadia é gasta nesse
+contraste; o vermelho é cor de ação, não de decoração.
+
+A versão anterior era escura do início ao fim com um único acento vermelho,
+que é exatamente o padrão que a skill de design da casa aponta como assinatura
+de design gerado por IA — junto de marcadores `01/02/03` decorativos e cards
+arredondados repetidos em tudo. Os três foram removidos: a numeração sobrou só
+onde existe sequência real (o processo de compra e as etapas do configurador).
+
+**Trio tipográfico**: Archivo (títulos), Instrument Sans (texto) e Martian Mono
+(dados e rótulos) — largura técnica que cai bem em ficha de especificação.
+
+## Rotas
+
+```
+/                     Home editorial
+/modelos              Índice da linha, filtro na URL
+/modelos/:slug        Página do modelo: palco 3D + ficha técnica
+/montar               Monte o seu, em seis etapas
+/servicos             Oficina, peças, revisão
+/concessionaria       A loja no Jardim Aquarius
+/seminovos            Critério de aceitação dos seminovos
+/contato              Contato
+```
+
+## Monte o seu
+
+Espelha o "Monte o Seu" oficial da Sea-Doo, cuja própria URL entrega o modelo
+de dados (`?platform=…&package=…&unitid=…`): **plataforma → pacote → motor →
+cor → acessórios → resumo**.
+
+- **O estado vive na URL.** Uma montagem é um link: recarrega e volta idêntica,
+  e pode ser mandada ao consultor.
+- **Código curto** derivado da configuração, para o cliente citar no balcão.
+- **Acessórios acendem geometria real.** Itens com `visual3d` ligam a peça no
+  modelo 3D — retrovisores, para-brisa, barra de LEDs, teto, bagageiro. É o elo
+  que faz o configurador parecer vivo em vez de decorativo.
+- **Sem preço inventado.** A ferramenta da BRP dá orçamento instantâneo porque a
+  fábrica tem a tabela; o resumo aqui lista a montagem completa e envia para a
+  loja responder com o valor real. Com a tabela em mãos, é um campo por item.
 
 ## Rodando
 
 ```bash
 npm install
 npm run dev        # http://localhost:5173
-npm run build      # typecheck + bundle de produção em dist/
+npm run build      # typecheck + bundle em dist/
 npm run preview    # serve o bundle gerado
 ```
+
+## Cores da marca
+
+**Todas as cores vivem em [`src/styles/tokens.css`](src/styles/tokens.css).**
+Nenhum componente usa cor literal. Para aplicar a paleta oficial, troque os
+valores de `--brand-*` no topo do arquivo.
+
+> O domínio `p1motorsports.com.br` está bloqueado pelo proxy de rede deste
+> ambiente, então os hexadecimais exatos do site atual não puderam ser
+> extraídos.
+
+Blocos escuros recebem a classe `.on-stage`, que redeclara os papéis semânticos
+(fundo, texto, linha) — tudo dentro deles segue funcionando sem exceção por
+componente.
 
 ## Deploy na Vercel
 

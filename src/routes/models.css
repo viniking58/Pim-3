@@ -1,0 +1,131 @@
+.linefilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.linefilter__btn {
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.linefilter__btn span {
+  color: var(--ink-faint);
+}
+
+.linefilter__btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.linefilter__btn.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.linefilter__btn.is-active span {
+  color: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+
+/* --- Lista -------------------------------------------------------------------
+   Linhas editoriais largas, não uma grade de cards: o veículo precisa de
+   largura para ser lido. */
+.modelist {
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.modelrow {
+  position: relative;
+  border-top: 1px solid var(--line);
+}
+
+.modelrow:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.modelrow__link {
+  display: grid;
+  gap: 1.2rem 2.5rem;
+  align-items: center;
+  padding-block: clamp(1.6rem, 3vw, 2.6rem);
+}
+
+@media (min-width: 900px) {
+  .modelrow__link {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  }
+}
+
+.modelrow__art {
+  position: relative;
+  max-width: 460px;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.modelrow:hover .modelrow__art {
+  transform: scale(1.035);
+}
+
+.modelrow__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.modelrow__line {
+  color: var(--accent);
+}
+
+.modelrow__body h2 {
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+}
+
+.modelrow__body p {
+  color: var(--ink-soft);
+  max-width: 46ch;
+}
+
+.modelrow__specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  margin-top: 0.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.modelrow__specs dt {
+  margin-bottom: 0.25rem;
+}
+
+.modelrow__specs dd {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.modelrow__specs em {
+  font-style: normal;
+  font-size: 0.6em;
+  color: var(--brand-action);
+}
+
+.modelrow__badge {
+  position: absolute;
+  top: clamp(1.6rem, 3vw, 2.6rem);
+  right: 0;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--ink-soft);
+  background: var(--paper);
+}

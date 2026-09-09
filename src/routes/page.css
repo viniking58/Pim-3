@@ -1,0 +1,126 @@
+/* Cabeçalho comum das páginas internas: um bloco editorial, sem herói de
+   viewport inteira — a página precisa mostrar conteúdo no primeiro quadro. */
+.pagehead {
+  padding-top: clamp(3rem, 7vw, 6rem);
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.pagehead__inner {
+  display: grid;
+  gap: clamp(1.2rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 900px) {
+  .pagehead__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: end;
+  }
+}
+
+.pagehead h1 {
+  font-size: var(--fs-h1);
+}
+
+.pagehead__kicker {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* Faixa de dados: a voz da ficha técnica, usada em várias páginas. */
+.specgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.specgrid > div {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+  padding-right: 1.5rem;
+}
+
+.specgrid dt {
+  margin-bottom: 0.3rem;
+}
+
+.specgrid dd {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Palco escuro em sangria: onde o 3D vive. */
+.stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.stage__canvas {
+  position: relative;
+  height: clamp(340px, 56vh, 620px);
+}
+
+.stage__canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.stage__caption {
+  position: absolute;
+  left: var(--gutter);
+  bottom: clamp(1rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  pointer-events: none;
+}
+
+.stage__hint {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(1rem, 3vw, 2rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--stage-line);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-data);
+  font-size: var(--fs-data);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stage-ink-soft);
+}
+
+.stage__loading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--font-data);
+  font-size: var(--fs-data);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stage-ink-soft);
+}
+
+/* Chamada final, repetida no fim das páginas. */
+.endcta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--line);
+}
+
+.endcta h2 {
+  max-width: 18ch;
+}
+
+.endcta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

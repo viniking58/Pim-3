@@ -1,106 +1,103 @@
 /* =========================================================================
-   P1 MOTORSPORTS — DESIGN TOKENS
+   P1 MOTORSPORTS — SISTEMA VISUAL
    -------------------------------------------------------------------------
-   ÚNICA FONTE DE VERDADE DE COR. Para trocar a paleta pelas cores exatas
-   da marca, altere apenas os valores de --brand-* abaixo: todo o restante
-   do site é derivado destes tokens.
+   Direção: páginas editoriais claras, com o 3D vivendo em palcos escuros de
+   sangria. Toda a ousadia é gasta nesse contraste — o vermelho é cor de ação,
+   não de decoração.
 
-   Paleta base: preto carbono + vermelho de corrida (identidade P1),
-   com os acentos oficiais das famílias BRP representadas pela loja —
-   azul Sea-Doo e amarelo Can-Am — usados por categoria de produto.
+   Para aplicar as cores oficiais da marca, altere apenas os valores de
+   --brand-* abaixo. Nenhum componente usa cor literal.
    ========================================================================= */
 
 :root {
-  /* --- Cores da marca ---------------------------------------------------- */
-  --brand-red: #ff2d18;
-  --brand-red-deep: #b00014;
-  --brand-red-glow: #ff5a3c;
+  /* --- Marca ------------------------------------------------------------- */
+  --brand-action: #d81e05; /* botões, foco, estado ativo — só isso */
+  --brand-action-deep: #a71504;
+  --brand-marine: #0a5c8c; /* linha náutica  (Sea-Doo) */
+  --brand-terra: #a8710f; /* linha off-road (Can-Am)  */
+  --brand-switch: #1c7a5e; /* linha pontoon  (Switch)  */
 
-  --brand-seadoo: #00a3e0; /* linha náutica  */
-  --brand-canam: #ffd100; /* linha off-road */
-  --brand-switch: #37d6a4; /* linha pontoon  */
+  /* --- Papel e tinta -----------------------------------------------------
+     Neutros escolhidos, não herdados: o papel tem um viés quente mínimo e a
+     tinta é um preto azulado. Cinza puro lê como falta de decisão. */
+  --paper: #f4f4f2;
+  --paper-raised: #fbfbfa;
+  --paper-sunk: #e7e8e4;
+  --paper-line: #d5d7d1;
 
-  /* --- Neutros carbono --------------------------------------------------- */
-  --ink-900: #050609;
-  --ink-850: #08090c;
-  --ink-800: #0c0e13;
-  --ink-700: #12141b;
-  --ink-600: #191c25;
-  --ink-500: #232733;
-  --ink-400: #333846;
-  --ink-300: #565d70;
-  --ink-200: #8a91a3;
-  --ink-100: #c3c8d4;
-  --ink-000: #f4f5f7;
+  --ink: #14161a;
+  --ink-soft: #5b616b;
+  --ink-faint: #8d939c;
 
-  /* --- Papéis semânticos ------------------------------------------------- */
-  --bg: var(--ink-850);
-  --bg-elevated: var(--ink-700);
-  --bg-sunken: var(--ink-900);
-  --surface: rgb(255 255 255 / 0.035);
-  --surface-strong: rgb(255 255 255 / 0.07);
-  --line: rgb(255 255 255 / 0.09);
-  --line-strong: rgb(255 255 255 / 0.18);
+  /* --- Palco: onde o 3D vive --------------------------------------------- */
+  --stage: #0b0d11;
+  --stage-raised: #141821;
+  --stage-line: rgb(255 255 255 / 0.14);
+  --stage-ink: #f2f3f5;
+  --stage-ink-soft: #9aa2ae;
 
-  --text: var(--ink-000);
-  --text-muted: var(--ink-200);
-  --text-dim: var(--ink-300);
+  /* --- Papéis semânticos -------------------------------------------------- */
+  --bg: var(--paper);
+  --text: var(--ink);
+  --text-soft: var(--ink-soft);
+  --line: var(--paper-line);
 
-  --accent: var(--brand-red);
-  --accent-contrast: #ffffff;
+  /* --- Tipografia ---------------------------------------------------------
+     Trio deliberado. Archivo é um grotesco industrial sem o desgaste de
+     Anton/Bebas; Martian Mono tem a largura técnica que cai bem em ficha de
+     especificação. */
+  --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-data: 'Martian Mono', ui-monospace, 'SF Mono', monospace;
 
-  /* --- Gradientes -------------------------------------------------------- */
-  --grad-accent: linear-gradient(135deg, var(--brand-red-glow), var(--brand-red) 45%, var(--brand-red-deep));
-  --grad-chrome: linear-gradient(180deg, #ffffff 0%, #b9bfcd 38%, #6d7484 55%, #e6e9ef 78%, #8d94a4 100%);
-  --grad-fade: linear-gradient(180deg, transparent, var(--bg));
+  /* Escala tipográfica — uma só, e o site inteiro fica nela. */
+  --fs-mega: clamp(3.2rem, 11vw, 11rem);
+  --fs-h1: clamp(2.5rem, 6.4vw, 5.4rem);
+  --fs-h2: clamp(1.9rem, 4vw, 3.4rem);
+  --fs-h3: clamp(1.25rem, 2vw, 1.75rem);
+  --fs-lead: clamp(1.05rem, 1.5vw, 1.3rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-data: 0.7rem;
 
-  /* --- Tipografia -------------------------------------------------------- */
-  --font-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
-  --font-body: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  /* --- Layout -------------------------------------------------------------- */
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --maxw: 1500px;
+  --maxw-text: 68ch;
+  --section-y: clamp(4.5rem, 10vw, 9rem);
 
-  --fs-display: clamp(3.6rem, 12.5vw, 13rem);
-  --fs-h1: clamp(2.6rem, 7.2vw, 6.4rem);
-  --fs-h2: clamp(2.1rem, 5.4vw, 4.6rem);
-  --fs-h3: clamp(1.5rem, 2.6vw, 2.3rem);
-  --fs-lead: clamp(1.02rem, 1.55vw, 1.32rem);
-  --fs-body: clamp(0.95rem, 1.05vw, 1.05rem);
-  --fs-small: 0.83rem;
-  --fs-micro: 0.7rem;
-
-  /* --- Espaçamento e layout ---------------------------------------------- */
-  --gutter: clamp(1.25rem, 5vw, 5.5rem);
-  --section-y: clamp(5.5rem, 12vh, 10rem);
-  --maxw: 1440px;
-  --radius-sm: 8px;
-  --radius: 16px;
-  --radius-lg: 28px;
+  --radius-sm: 4px;
+  --radius: 10px;
   --radius-pill: 999px;
 
-  /* --- Vidro (glassmorphism) --------------------------------------------- */
-  --glass-bg: rgb(255 255 255 / 0.045);
-  --glass-bg-strong: rgb(255 255 255 / 0.075);
-  --glass-border: rgb(255 255 255 / 0.11);
-  --glass-highlight: rgb(255 255 255 / 0.22);
-  --glass-blur: blur(22px) saturate(165%);
-  --glass-shadow: 0 24px 60px -28px rgb(0 0 0 / 0.9), inset 0 1px 0 0 var(--glass-highlight);
+  /* --- Elevação ------------------------------------------------------------
+     Gasta por papel, não carimbada em todo bloco. */
+  --shadow-lift: 0 1px 2px rgb(20 22 26 / 0.06), 0 8px 24px -12px rgb(20 22 26 / 0.18);
+  --shadow-stage: 0 40px 90px -50px rgb(0 0 0 / 0.9);
 
-  /* --- Sombras ----------------------------------------------------------- */
-  --shadow-sm: 0 2px 10px rgb(0 0 0 / 0.35);
-  --shadow: 0 18px 50px -12px rgb(0 0 0 / 0.75);
-  --shadow-lg: 0 44px 120px -28px rgb(0 0 0 / 0.85);
-  --glow-accent: 0 0 0 1px rgb(255 45 24 / 0.35), 0 22px 70px -22px rgb(255 45 24 / 0.65);
-
-  /* --- Motion ------------------------------------------------------------ */
+  /* --- Movimento ------------------------------------------------------------ */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --dur-fast: 220ms;
-  --dur: 480ms;
+  --dur-fast: 200ms;
+  --dur: 460ms;
   --dur-slow: 900ms;
 
-  --z-cursor: 999;
-  --z-loader: 900;
-  --z-nav: 500;
-  --z-overlay: 400;
+  --z-stage: 0;
+  --z-content: 1;
+  --z-nav: 400;
+  --z-overlay: 500;
+  --z-cursor: 900;
+}
+
+/* Blocos em palco escuro re-declaram os papéis semânticos, e tudo dentro
+   deles segue funcionando sem exceção por componente. */
+.on-stage {
+  --bg: var(--stage);
+  --text: var(--stage-ink);
+  --text-soft: var(--stage-ink-soft);
+  --line: var(--stage-line);
+  --paper-raised: var(--stage-raised);
+  --paper-sunk: #090b0e;
+  color: var(--text);
+  background: var(--bg);
 }

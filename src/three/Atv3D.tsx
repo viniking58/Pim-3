@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import { loft, boxSection, hullSection, mix, type Section } from './geometry'
 import { Wheel3D } from './Wheel3D'
 import type { PaintProps } from './materials'
+import type { VisualParts } from './VehicleScene'
 
 const WHEEL_RADIUS = 0.46
 const WHEEL_WIDTH = 0.26
@@ -58,7 +59,12 @@ function buildFender(centerX: number): Section[] {
   return sections
 }
 
-export function Atv3D({ paint, accent, moving }: PaintProps & { moving: boolean }) {
+export function Atv3D({
+  paint,
+  accent,
+  moving,
+  parts = {},
+}: PaintProps & { moving: boolean; parts?: VisualParts }) {
   const chassis = useMemo(() => loft(buildChassis()), [])
   const frontFender = useMemo(() => loft(buildFender(WHEELBASE)), [])
   const rearFender = useMemo(() => loft(buildFender(-WHEELBASE)), [])
@@ -135,8 +141,8 @@ export function Atv3D({ paint, accent, moving }: PaintProps & { moving: boolean 
         </mesh>
       ))}
 
-      {/* Bagageiros tubulares */}
-      {[1.16, -1.16].map((x) => (
+      {/* Bagageiros tubulares (acessório) */}
+      {(parts.rack ?? true) && [1.16, -1.16].map((x) => (
         <group key={x} position={[x, 1.14, 0]}>
           <mesh castShadow>
             <boxGeometry args={[0.5, 0.04, 0.7]} />

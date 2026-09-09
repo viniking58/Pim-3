@@ -13,7 +13,6 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: auto;
 }
 
 html.lenis,
@@ -28,21 +27,21 @@ html.lenis body {
 }
 
 body {
-  background: var(--ink-900);
-  color: var(--text);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--fs-body);
-  font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  text-rendering: optimizeLegibility;
+  font-synthesis-weight: none;
 }
 
 img,
 svg,
-video {
+video,
+canvas {
   display: block;
   max-width: 100%;
 }
@@ -72,74 +71,67 @@ ol {
 }
 
 ::selection {
-  background: var(--brand-red);
+  background: var(--brand-action);
   color: #fff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--brand-red-glow);
+  outline: 2px solid var(--brand-action);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
-/* --- Scrollbar ----------------------------------------------------------- */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--ink-900);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--ink-500);
-  border-radius: 99px;
-  border: 3px solid var(--ink-900);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--brand-red);
-}
-
-/* --- Tipografia utilitária ----------------------------------------------- */
-.display,
+/* --- Tipografia ----------------------------------------------------------- */
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: var(--font-display);
   font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.015em;
-  text-transform: uppercase;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7ch;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--text-dim);
+h1 {
+  font-size: var(--fs-h1);
+}
+h2 {
+  font-size: var(--fs-h2);
+}
+h3 {
+  font-size: var(--fs-h3);
+  letter-spacing: -0.02em;
 }
 
-.eyebrow::before {
-  content: '';
-  width: 26px;
-  height: 1px;
-  background: var(--brand-red);
+p {
+  text-wrap: pretty;
+}
+
+/* Rótulo técnico: a voz da ficha de especificação. */
+.label {
+  font-family: var(--font-data);
+  font-size: var(--fs-data);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
 }
 
 .lead {
   font-size: var(--fs-lead);
-  color: var(--text-muted);
-  line-height: 1.68;
-  font-weight: 300;
+  line-height: 1.55;
+  color: var(--text-soft);
+  max-width: var(--maxw-text);
 }
 
-.accent {
-  color: var(--brand-red);
+/* Números de ficha técnica alinham em coluna. */
+.data {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
 }
 
-/* --- Layout -------------------------------------------------------------- */
+/* --- Layout ---------------------------------------------------------------- */
 .shell {
   width: 100%;
   max-width: var(--maxw);
@@ -148,71 +140,46 @@ h3 {
 }
 
 .section {
-  position: relative;
   padding-block: var(--section-y);
 }
 
-.section-head {
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-  max-width: 62ch;
-  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+/* Sangria: rompe a coluna e vai de borda a borda. */
+.bleed {
+  width: 100%;
 }
 
-/* --- Vidro ---------------------------------------------------------------
-   Um painel de vidro só convence com três camadas: o desfoque do que está
-   atrás, um fio de luz na aresta superior e uma borda sutil. Sem o fio de
-   luz, fica um retângulo cinza translúcido. */
-.glass {
-  position: relative;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+.rule {
+  border: 0;
+  border-top: 1px solid var(--line);
 }
 
-.glass::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(160deg, var(--glass-highlight), transparent 42%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-@supports not (backdrop-filter: blur(1px)) {
-  .glass {
-    background: rgb(16 18 24 / 0.92);
-  }
-}
-
-/* --- Grão de filme + vinheta --------------------------------------------- */
+/* --- Grão: presença sutil de papel impresso ------------------------------- */
 .grain {
   pointer-events: none;
   position: fixed;
   inset: -50%;
-  z-index: 2;
-  opacity: 0.05;
+  z-index: var(--z-overlay);
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain-shift 900ms steps(3) infinite;
-  mix-blend-mode: overlay;
+  mix-blend-mode: multiply;
 }
 
-@keyframes grain-shift {
-  0% { transform: translate(0, 0); }
-  33% { transform: translate(-3%, 2%); }
-  66% { transform: translate(2%, -3%); }
-  100% { transform: translate(0, 0); }
+/* --- Scrollbar -------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper-sunk);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink-faint);
+  border-radius: 99px;
+  border: 3px solid var(--paper-sunk);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-soft);
 }
 
-/* --- Preferência por menos movimento ------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -221,8 +188,5 @@ h3 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-  }
-  .grain {
-    animation: none;
   }
 }

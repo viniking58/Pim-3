@@ -1,0 +1,16 @@
+.route {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.route__sweep {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: calc(var(--z-nav) + 1);
+  background: var(--brand-action);
+  pointer-events: none;
+}

@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { loft, loftStrip, hullSection, boxSection, bell, mix, type Section } from './geometry'
 import type { PaintProps } from './materials'
+import type { VisualParts } from './VehicleScene'
 
 /* --------------------------------------------------------------------------
    Proporções reais de um Sea-Doo Spark: 3,05 m de comprimento por 1,17 m de
@@ -183,7 +184,12 @@ function footwellSections(side: number): Section[] {
   })
 }
 
-export function JetSki3D({ paint, accent, moving }: PaintProps & { moving: boolean }) {
+export function JetSki3D({
+  paint,
+  accent,
+  moving,
+  parts = {},
+}: PaintProps & { moving: boolean; parts?: VisualParts }) {
   const hull = useMemo(hullSections, [])
 
   const hullGeometry = useMemo(() => loft(hull), [hull])
@@ -302,14 +308,18 @@ export function JetSki3D({ paint, accent, moving }: PaintProps & { moving: boole
             <cylinderGeometry args={[0.038, 0.038, 0.15, 16]} />
             <meshStandardMaterial color="#0d0f13" roughness={0.96} />
           </mesh>
-          <mesh position={[0.5, 0.94, z * 0.9]} rotation={[0, 0, 0.26]}>
-            <cylinderGeometry args={[0.012, 0.012, 0.19, 10]} />
-            <meshStandardMaterial color="#181c22" roughness={0.5} metalness={0.6} />
-          </mesh>
-          <mesh position={[0.54, 1.03, z * 0.88]} rotation={[0, -0.4, 0]}>
-            <boxGeometry args={[0.04, 0.085, 0.14]} />
-            <meshStandardMaterial color="#101318" roughness={0.38} metalness={0.5} />
-          </mesh>
+          {parts.mirrors && (
+            <>
+              <mesh position={[0.5, 0.94, z * 0.9]} rotation={[0, 0, 0.26]}>
+                <cylinderGeometry args={[0.012, 0.012, 0.19, 10]} />
+                <meshStandardMaterial color="#181c22" roughness={0.5} metalness={0.6} />
+              </mesh>
+              <mesh position={[0.54, 1.03, z * 0.88]} rotation={[0, -0.4, 0]}>
+                <boxGeometry args={[0.04, 0.085, 0.14]} />
+                <meshStandardMaterial color="#101318" roughness={0.38} metalness={0.5} />
+              </mesh>
+            </>
+          )}
         </group>
       ))}
 
@@ -336,6 +346,14 @@ export function JetSki3D({ paint, accent, moving }: PaintProps & { moving: boole
         <torusGeometry args={[0.1, 0.02, 10, 24, Math.PI]} />
         <meshStandardMaterial color="#23272f" roughness={0.42} metalness={0.78} />
       </mesh>
+
+      {/* Bagageiro LinQ (acessório) */}
+      {parts.rack && (
+        <mesh position={[-1.16, 0.46, 0]} castShadow>
+          <boxGeometry args={[0.34, 0.05, 0.5]} />
+          <meshStandardMaterial color="#2b3140" roughness={0.5} metalness={0.6} />
+        </mesh>
+      )}
 
       {/* Bocal do jato */}
       <mesh position={[-1.5, -0.06, 0]} rotation={[0, 0, Math.PI / 2]}>

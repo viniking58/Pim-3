@@ -11,6 +11,15 @@ import { buildPaint, type FinishId } from './materials'
 
 export type ModelId = 'jetski' | 'utv' | 'utility' | 'atv'
 
+/** Peças opcionais que os acessórios acendem ou apagam na cena. */
+export type VisualParts = {
+  mirrors?: boolean
+  windshield?: boolean
+  lightbar?: boolean
+  roof?: boolean
+  rack?: boolean
+}
+
 export type SceneConfig = {
   model: ModelId
   color: string
@@ -19,6 +28,8 @@ export type SceneConfig = {
   env: EnvId
   moving: boolean
   autoRotate: boolean
+  /** Ligadas pelos acessórios escolhidos no configurador. */
+  parts?: VisualParts
   /**
    * Caminho de um .glb para este modelo. Quando presente, o arquivo real
    * substitui a geometria procedural — mesmo palco, mesmas opções de cor.
@@ -58,13 +69,17 @@ function Turntable({ config }: { config: SceneConfig }) {
   const procedural = (
     <>
       {config.model === 'jetski' && (
-        <JetSki3D paint={paint} accent={config.accent} moving={config.moving} />
+        <JetSki3D paint={paint} accent={config.accent} moving={config.moving} parts={config.parts} />
       )}
-      {config.model === 'utv' && <Utv3D paint={paint} accent={config.accent} moving={config.moving} />}
+      {config.model === 'utv' && (
+        <Utv3D paint={paint} accent={config.accent} moving={config.moving} parts={config.parts} />
+      )}
       {config.model === 'utility' && (
-        <Utv3D paint={paint} accent={config.accent} moving={config.moving} utility />
+        <Utv3D paint={paint} accent={config.accent} moving={config.moving} utility parts={config.parts} />
       )}
-      {config.model === 'atv' && <Atv3D paint={paint} accent={config.accent} moving={config.moving} />}
+      {config.model === 'atv' && (
+        <Atv3D paint={paint} accent={config.accent} moving={config.moving} parts={config.parts} />
+      )}
     </>
   )
 
