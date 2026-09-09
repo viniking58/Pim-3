@@ -109,7 +109,7 @@ export function Hero() {
           <span className="hero__stage-ring" aria-hidden="true" />
           <Vehicle type="jetski" accent="var(--brand-seadoo)" title="Jet ski Sea-Doo em movimento" />
           <motion.span
-            className="hero__stage-tag"
+            className="hero__stage-tag glass"
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.25, duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }}

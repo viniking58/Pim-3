@@ -93,6 +93,9 @@ arquivo e o site inteiro acompanha.
 | Faixas | Marquee infinito cuja velocidade e direção reagem à velocidade do scroll |
 | Vitrine | Cards com inclinação 3D real, reflexo que segue o ponteiro, veículo deslocado no eixo Z e contador de potência |
 | Configurador | Palco WebGL: plataforma giratória, rodas girando, rastros no piso e troca de material/luz ao vivo |
+| Navegação | Pílula de vidro que desliza para a seção em tela (`layoutId`), acompanhando o scroll |
+| Troca de seção | Cortina de vidro em quatro faixas cobrindo saltos longos entre seções |
+| Vidro | Barra, painel do configurador, filtros e etiquetas flutuantes com desfoque, borda e fio de luz na aresta |
 | Filtros | Pílula ativa com `layoutId` (transição compartilhada) + entrada/saída dos cards com `AnimatePresence` |
 | Experiência | Seção fixada com rolagem horizontal controlada pelo scroll vertical, com mola e barra de progresso |
 | Manifesto | Texto que acende palavra a palavra conforme a seção cruza a viewport; wordmark em paralaxe |
@@ -127,9 +130,14 @@ vivo.
   `clearcoat` do material físico em tempo real.
 - **Cor de rodas e detalhes**, aplicada a aros, cubos, painéis de porta e ao
   grafismo do flanco do casco.
-- **Quatro ambientes** — catálogo (ciclorama branco, o enquadramento das fotos
-  de fábrica), estúdio, pôr do sol e noite — trocando luz-chave, preenchimento,
-  contraluz, névoa, piso, sombra de contato e exposição.
+- **Quatro ambientes** — estúdio escuro (preto `#0a0a0a`, luz-chave branca e
+  recorte ciano desenhando a silhueta), catálogo (ciclorama branco, o
+  enquadramento das fotos de fábrica), pôr do sol e noite — trocando
+  luz-chave, preenchimento, contraluz, névoa, piso, sombra e exposição.
+- O acabamento padrão é **metálico polido** (rugosidade 0,14 / metalness 0,95).
+  Ele só funciona no estúdio escuro: o que a lataria reflete ali é preto com um
+  recorte ciano. Esse mesmo material no ciclorama branco estoura e lava a cor —
+  por isso o `envMapIntensity` faz parte de cada acabamento.
 - **Modo "em movimento"**: rodas girando, carroceria flutuando, rastros no
   piso e espuma de esteira atrás do jet ski.
 
@@ -138,6 +146,12 @@ vivo.
 A geometria escrita à mão tem um teto: ela chega a um 3D estilizado
 convincente, **não a uma foto de catálogo**. Quando você tiver o material
 oficial, existem dois caminhos — os dois já suportados:
+
+> **Não existe jet ski nem barco nos exemplos públicos do Three.js.** Os
+> nomes plausíveis foram testados direto no repositório e todos retornam 404;
+> o único veículo lá é `ferrari.glb` (um carro). Também não vale apontar o
+> site para `threejs.org` em produção: é banda de terceiro, sem garantia de
+> permanência, e a CSP deste projeto bloqueia origens externas.
 
 **1. Modelo 3D real (.glb) — gira em 360° e continua configurável**
 
@@ -164,7 +178,17 @@ Só isso. [`GltfVehicle`](src/three/GltfVehicle.tsx) centraliza o modelo, apoia
 no piso, reescala para o palco e aplica as cores do configurador nos materiais
 cujo nome casa com os `slots` — preservando as texturas do arquivo. O eixo de
 rotação de cada roda é deduzido pela menor dimensão da sua caixa envolvente.
-Sem `asset`, o modelo procedural continua valendo como reserva.
+
+- **Draco**: o decodificador é auto-hospedado em `public/draco/`. O padrão da
+  biblioteca busca num CDN externo, que a CSP do site bloqueia — e modelos de
+  fabricante quase sempre chegam comprimidos, então isso não é opcional.
+- **Reserva**: se o arquivo falhar (URL errada, rede fora, CSP barrando a
+  origem), um *error boundary* devolve a geometria procedural em vez de
+  deixar o palco vazio.
+- **Verificado**: o caminho foi testado de ponta a ponta com um `.glb` real
+  (ToyCar, do conjunto de amostras da Khronos) — carregou, centralizou,
+  escalou e renderizou sob a iluminação do palco. O arquivo de teste não foi
+  mantido no repositório.
 
 **2. Fotos oficiais em 360° — é assim que a Porsche faz**
 

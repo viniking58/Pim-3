@@ -160,6 +160,39 @@ h3 {
   margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
 }
 
+/* --- Vidro ---------------------------------------------------------------
+   Um painel de vidro só convence com três camadas: o desfoque do que está
+   atrás, um fio de luz na aresta superior e uma borda sutil. Sem o fio de
+   luz, fica um retângulo cinza translúcido. */
+.glass {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(160deg, var(--glass-highlight), transparent 42%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass {
+    background: rgb(16 18 24 / 0.92);
+  }
+}
+
 /* --- Grão de filme + vinheta --------------------------------------------- */
 .grain {
   pointer-events: none;

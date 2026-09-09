@@ -33,13 +33,18 @@ const FINISHES: Record<FinishId, Omit<MeshPhysicalMaterialParameters, 'color'>> 
     clearcoatRoughness: 0.6,
     envMapIntensity: 0.4,
   },
-  // Metálico com flocos: brilho direcional e mais resposta ao ambiente.
+  /*
+   * Metálico polido. Rugosidade baixa e metalness quase total: no estúdio
+   * escuro isso rende reflexo espelhado sem lavar a cor, porque o que está
+   * sendo refletido é preto com um recorte ciano — o oposto do ciclorama
+   * branco, onde esse mesmo material estoura.
+   */
   metallic: {
-    roughness: 0.3,
-    metalness: 0.8,
-    clearcoat: 0.75,
-    clearcoatRoughness: 0.14,
-    envMapIntensity: 0.6,
+    roughness: 0.14,
+    metalness: 0.95,
+    clearcoat: 0.6,
+    clearcoatRoughness: 0.09,
+    envMapIntensity: 1.15,
   },
 }
 

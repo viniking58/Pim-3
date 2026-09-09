@@ -6,7 +6,7 @@ import { Stage3D, type EnvId } from './Stage3D'
 import { JetSki3D } from './JetSki3D'
 import { Utv3D } from './Utv3D'
 import { Atv3D } from './Atv3D'
-import { GltfVehicle, type GltfSlots } from './GltfVehicle'
+import { GltfBoundary, GltfVehicle, type GltfSlots } from './GltfVehicle'
 import { buildPaint, type FinishId } from './materials'
 
 export type ModelId = 'jetski' | 'utv' | 'utility' | 'atv'
@@ -53,6 +53,21 @@ function Turntable({ config }: { config: SceneConfig }) {
   const group = useRef<THREE.Group>(null)
   const paint = buildPaint(config.color, config.finish)
 
+  // Geometria autoral: é o que aparece sem arquivo .glb configurado, e
+  // também a reserva caso o arquivo falhe ao carregar.
+  const procedural = (
+    <>
+      {config.model === 'jetski' && (
+        <JetSki3D paint={paint} accent={config.accent} moving={config.moving} />
+      )}
+      {config.model === 'utv' && <Utv3D paint={paint} accent={config.accent} moving={config.moving} />}
+      {config.model === 'utility' && (
+        <Utv3D paint={paint} accent={config.accent} moving={config.moving} utility />
+      )}
+      {config.model === 'atv' && <Atv3D paint={paint} accent={config.accent} moving={config.moving} />}
+    </>
+  )
+
   useFrame((state, delta) => {
     if (!group.current) return
     if (config.autoRotate) group.current.rotation.y += delta * 0.24
@@ -64,26 +79,17 @@ function Turntable({ config }: { config: SceneConfig }) {
   return (
     <group ref={group}>
       {config.asset ? (
-        <GltfVehicle
-          url={config.asset}
-          paint={paint}
-          accent={config.accent}
-          moving={config.moving}
-          {...config.slots}
-        />
-      ) : null}
-
-      {!config.asset && config.model === 'jetski' && (
-        <JetSki3D paint={paint} accent={config.accent} moving={config.moving} />
-      )}
-      {!config.asset && config.model === 'utv' && (
-        <Utv3D paint={paint} accent={config.accent} moving={config.moving} />
-      )}
-      {!config.asset && config.model === 'utility' && (
-        <Utv3D paint={paint} accent={config.accent} moving={config.moving} utility />
-      )}
-      {!config.asset && config.model === 'atv' && (
-        <Atv3D paint={paint} accent={config.accent} moving={config.moving} />
+        <GltfBoundary fallback={procedural}>
+          <GltfVehicle
+            url={config.asset}
+            paint={paint}
+            accent={config.accent}
+            moving={config.moving}
+            {...config.slots}
+          />
+        </GltfBoundary>
+      ) : (
+        procedural
       )}
     </group>
   )

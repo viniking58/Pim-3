@@ -42,7 +42,7 @@ export function Fleet() {
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
             <LayoutGroup id="fleet-filters">
-              <div className="fleet__filters" role="tablist" aria-label="Filtrar linha de produtos">
+              <div className="fleet__filters glass" role="tablist" aria-label="Filtrar linha de produtos">
                 {CATEGORIES.map((category) => {
                   const isActive = active === category.id
                   return (

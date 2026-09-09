@@ -3,6 +3,7 @@ import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { Preloader } from './components/Preloader'
 import { Cursor } from './components/Cursor'
 import { ScrollProgress } from './components/ScrollProgress'
+import { SectionTransition } from './components/motion/SectionTransition'
 import { Nav } from './components/sections/Nav'
 import { Hero } from './components/sections/Hero'
 import { BrandTicker } from './components/sections/BrandTicker'
@@ -25,6 +26,7 @@ export default function App() {
       <Preloader onDone={() => setReady(true)} />
       <Cursor />
       <ScrollProgress />
+      <SectionTransition />
       <div className="grain" aria-hidden="true" />
       <div className="vignette" aria-hidden="true" />
 

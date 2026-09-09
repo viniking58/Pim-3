@@ -144,10 +144,7 @@
   bottom: 4%;
   z-index: 2;
   padding: 0.55rem 1rem;
-  border: 1px solid var(--line-strong);
   border-radius: var(--radius-pill);
-  background: rgb(8 9 12 / 0.78);
-  backdrop-filter: blur(10px);
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   letter-spacing: 0.14em;

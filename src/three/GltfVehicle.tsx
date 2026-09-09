@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef } from 'react'
+import { Component, useLayoutEffect, useMemo, useRef, type ReactNode } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
@@ -38,6 +38,29 @@ function matches(name: string, needles: string[]) {
  * O arquivo é centralizado, apoiado no piso e reescalado automaticamente, de
  * modo que qualquer modelo — em qualquer unidade e origem — entre enquadrado.
  */
+/**
+ * Se o arquivo não carregar (URL errada, rede fora, CSP bloqueando a origem),
+ * o palco cai para a geometria procedural em vez de ficar vazio.
+ */
+export class GltfBoundary extends Component<
+  { children: ReactNode; fallback: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false }
+
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+
+  componentDidCatch(error: unknown) {
+    console.warn('[configurador] modelo .glb não pôde ser carregado:', error)
+  }
+
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children
+  }
+}
+
 export function GltfVehicle({
   url,
   paint,
@@ -48,7 +71,16 @@ export function GltfVehicle({
   wheelSlots = DEFAULT_WHEEL_SLOTS,
   targetLength = 3.4,
 }: GltfVehicleProps) {
-  const { scene } = useGLTF(url)
+  // Decodificador Draco auto-hospedado em /draco/: o padrão do drei vem de um
+  // CDN externo, que a CSP do site bloqueia. Modelos de fabricante quase
+  // sempre chegam comprimidos, então isso não é opcional.
+  const { scene } = useGLTF(url, '/draco/')
+
+  /*
+   * Materiais metálicos: quando o modelo do fabricante já traz mapas, eles
+   * são preservados; o que trocamos é só a cor base e o par
+   * roughness/metalness dos slots configuráveis.
+   */
 
   // Clonamos: o cache do useGLTF é compartilhado e não pode ser mutado.
   const model = useMemo(() => scene.clone(true), [scene])

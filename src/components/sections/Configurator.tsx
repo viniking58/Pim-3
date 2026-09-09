@@ -30,7 +30,7 @@ export function Configurator() {
 
   const [model, setModel] = useState<ModelId>('utv')
   const [paint, setPaint] = useState<string>(PAINTS[2].hex)
-  const [finish, setFinish] = useState<FinishId>('gloss')
+  const [finish, setFinish] = useState<FinishId>('metallic')
   const [accent, setAccent] = useState<string>(ACCENTS[0].hex)
   const [env, setEnv] = useState<EnvId>('studio')
   const [moving, setMoving] = useState(false)
@@ -103,7 +103,7 @@ export function Configurator() {
                 </motion.div>
               </AnimatePresence>
 
-              <span className="configurator__hint">
+              <span className="configurator__hint glass">
                 <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
                   <path
                     d="M8 8L4 12l4 4M16 8l4 4-4 4"
@@ -129,7 +129,7 @@ export function Configurator() {
           </div>
 
           {/* --------------------------------------------------- Opções */}
-          <div className="configurator__panel">
+          <div className="configurator__panel glass">
             <Group label="Modelo">
               <div className="configurator__models">
                 {MODEL_OPTIONS.map((option) => (

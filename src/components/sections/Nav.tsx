@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
+import { AnimatePresence, LayoutGroup, motion, useMotionValueEvent, useScroll } from 'motion/react'
 import { MagneticButton } from '../motion/MagneticButton'
+import { useActiveSection } from '../../hooks/useActiveSection'
 import './nav.css'
 
 const LINKS = [
@@ -12,8 +13,11 @@ const LINKS = [
   { href: '#contato', label: 'Contato', index: '06' },
 ]
 
+const SECTION_IDS = LINKS.map((link) => link.href.slice(1))
+
 export function Nav() {
   const { scrollY } = useScroll()
+  const active = useActiveSection(SECTION_IDS)
   const [hidden, setHidden] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -73,17 +77,34 @@ export function Nav() {
             </svg>
           </a>
 
-          <nav className="nav__links" aria-label="Navegação principal">
-            {LINKS.map((link) => (
-              <a className="nav__link" href={link.href} key={link.href}>
-                <span className="nav__link-index">{link.index}</span>
-                <span className="nav__link-text">
-                  <span>{link.label}</span>
-                  <span aria-hidden="true">{link.label}</span>
-                </span>
-              </a>
-            ))}
-          </nav>
+          <LayoutGroup id="nav">
+            <nav className="nav__links" aria-label="Navegação principal">
+              {LINKS.map((link) => {
+                const isActive = active === link.href.slice(1)
+                return (
+                  <a
+                    className={`nav__link${isActive ? ' is-active' : ''}`}
+                    href={link.href}
+                    key={link.href}
+                    aria-current={isActive ? 'true' : undefined}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="nav__link-pill"
+                        transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                      />
+                    )}
+                    <span className="nav__link-index">{link.index}</span>
+                    <span className="nav__link-text">
+                      <span>{link.label}</span>
+                      <span aria-hidden="true">{link.label}</span>
+                    </span>
+                  </a>
+                )
+              })}
+            </nav>
+          </LayoutGroup>
 
           <div className="nav__actions">
             <MagneticButton href="#contato" variant="solid" cursorLabel="Falar">
