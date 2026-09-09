@@ -1,0 +1,74 @@
+.mag-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.05rem 1.9rem;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  isolation: isolate;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.mag-btn__label,
+.mag-btn__arrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+}
+
+.mag-btn__arrow {
+  transition: transform var(--dur) var(--ease-spring);
+}
+
+.mag-btn:hover .mag-btn__arrow {
+  transform: translate(3px, -3px);
+}
+
+.mag-btn__fill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.mag-btn:hover .mag-btn__fill {
+  transform: scaleY(1);
+}
+
+/* --- Variante sólida ----------------------------------------------------- */
+.mag-btn--solid {
+  background: var(--grad-accent);
+  color: #fff;
+  box-shadow: var(--glow-accent);
+}
+
+.mag-btn--solid .mag-btn__fill {
+  background: var(--ink-000);
+}
+
+.mag-btn--solid:hover {
+  color: var(--ink-900);
+}
+
+/* --- Variante contorno --------------------------------------------------- */
+.mag-btn--ghost {
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+}
+
+.mag-btn--ghost .mag-btn__fill {
+  background: var(--brand-red);
+}
+
+.mag-btn--ghost:hover {
+  border-color: var(--brand-red);
+  color: #fff;
+}

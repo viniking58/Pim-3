@@ -1,0 +1,19 @@
+.ticker {
+  padding-block: 1.15rem;
+  border-block: 1px solid var(--line);
+  background: linear-gradient(90deg, var(--ink-900), var(--ink-800), var(--ink-900));
+}
+
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding-inline: 1.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}

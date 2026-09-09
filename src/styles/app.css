@@ -1,0 +1,25 @@
+main {
+  position: relative;
+  z-index: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: calc(var(--z-nav) + 2);
+  padding: 0.7rem 1.1rem;
+  border-radius: var(--radius-pill);
+  background: var(--brand-red);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: translateY(-160%);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}

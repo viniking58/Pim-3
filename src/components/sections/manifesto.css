@@ -1,0 +1,106 @@
+.manifesto {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink-850);
+}
+
+.manifesto__wordmark {
+  position: absolute;
+  top: 8%;
+  left: 0;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 20vw, 18rem);
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.05);
+  pointer-events: none;
+  user-select: none;
+}
+
+.manifesto__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.6rem, 4vw, 2.6rem);
+}
+
+.manifesto__statement {
+  max-width: 22ch;
+}
+
+@media (min-width: 900px) {
+  .manifesto__statement {
+    max-width: 26ch;
+  }
+}
+
+.manifesto__process {
+  display: grid;
+  gap: 1px;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+
+@media (min-width: 720px) {
+  .manifesto__process {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .manifesto__process {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.manifesto__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+  background: var(--ink-850);
+  overflow: hidden;
+  transition: background-color var(--dur) var(--ease-out);
+}
+
+.manifesto__step:hover {
+  background: var(--ink-800);
+}
+
+.manifesto__step-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.2em;
+  color: var(--brand-red);
+}
+
+.manifesto__step h3 {
+  font-size: 1.35rem;
+}
+
+.manifesto__step p {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.manifesto__step-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--grad-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.manifesto__step:hover .manifesto__step-line {
+  transform: scaleX(1);
+}

@@ -1,0 +1,98 @@
+/* =========================================================================
+   P1 MOTORSPORTS — DESIGN TOKENS
+   -------------------------------------------------------------------------
+   ÚNICA FONTE DE VERDADE DE COR. Para trocar a paleta pelas cores exatas
+   da marca, altere apenas os valores de --brand-* abaixo: todo o restante
+   do site é derivado destes tokens.
+
+   Paleta base: preto carbono + vermelho de corrida (identidade P1),
+   com os acentos oficiais das famílias BRP representadas pela loja —
+   azul Sea-Doo e amarelo Can-Am — usados por categoria de produto.
+   ========================================================================= */
+
+:root {
+  /* --- Cores da marca ---------------------------------------------------- */
+  --brand-red: #ff2d18;
+  --brand-red-deep: #b00014;
+  --brand-red-glow: #ff5a3c;
+
+  --brand-seadoo: #00a3e0; /* linha náutica  */
+  --brand-canam: #ffd100; /* linha off-road */
+  --brand-switch: #37d6a4; /* linha pontoon  */
+
+  /* --- Neutros carbono --------------------------------------------------- */
+  --ink-900: #050609;
+  --ink-850: #08090c;
+  --ink-800: #0c0e13;
+  --ink-700: #12141b;
+  --ink-600: #191c25;
+  --ink-500: #232733;
+  --ink-400: #333846;
+  --ink-300: #565d70;
+  --ink-200: #8a91a3;
+  --ink-100: #c3c8d4;
+  --ink-000: #f4f5f7;
+
+  /* --- Papéis semânticos ------------------------------------------------- */
+  --bg: var(--ink-850);
+  --bg-elevated: var(--ink-700);
+  --bg-sunken: var(--ink-900);
+  --surface: rgb(255 255 255 / 0.035);
+  --surface-strong: rgb(255 255 255 / 0.07);
+  --line: rgb(255 255 255 / 0.09);
+  --line-strong: rgb(255 255 255 / 0.18);
+
+  --text: var(--ink-000);
+  --text-muted: var(--ink-200);
+  --text-dim: var(--ink-300);
+
+  --accent: var(--brand-red);
+  --accent-contrast: #ffffff;
+
+  /* --- Gradientes -------------------------------------------------------- */
+  --grad-accent: linear-gradient(135deg, var(--brand-red-glow), var(--brand-red) 45%, var(--brand-red-deep));
+  --grad-chrome: linear-gradient(180deg, #ffffff 0%, #b9bfcd 38%, #6d7484 55%, #e6e9ef 78%, #8d94a4 100%);
+  --grad-fade: linear-gradient(180deg, transparent, var(--bg));
+
+  /* --- Tipografia -------------------------------------------------------- */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  --fs-display: clamp(3.6rem, 12.5vw, 13rem);
+  --fs-h1: clamp(2.6rem, 7.2vw, 6.4rem);
+  --fs-h2: clamp(2.1rem, 5.4vw, 4.6rem);
+  --fs-h3: clamp(1.5rem, 2.6vw, 2.3rem);
+  --fs-lead: clamp(1.02rem, 1.55vw, 1.32rem);
+  --fs-body: clamp(0.95rem, 1.05vw, 1.05rem);
+  --fs-small: 0.83rem;
+  --fs-micro: 0.7rem;
+
+  /* --- Espaçamento e layout ---------------------------------------------- */
+  --gutter: clamp(1.25rem, 5vw, 5.5rem);
+  --section-y: clamp(5.5rem, 12vh, 10rem);
+  --maxw: 1440px;
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  /* --- Sombras ----------------------------------------------------------- */
+  --shadow-sm: 0 2px 10px rgb(0 0 0 / 0.35);
+  --shadow: 0 18px 50px -12px rgb(0 0 0 / 0.75);
+  --shadow-lg: 0 44px 120px -28px rgb(0 0 0 / 0.85);
+  --glow-accent: 0 0 0 1px rgb(255 45 24 / 0.35), 0 22px 70px -22px rgb(255 45 24 / 0.65);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 220ms;
+  --dur: 480ms;
+  --dur-slow: 900ms;
+
+  --z-cursor: 999;
+  --z-loader: 900;
+  --z-nav: 500;
+  --z-overlay: 400;
+}
