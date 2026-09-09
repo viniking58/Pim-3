@@ -17,6 +17,51 @@ npm run build      # typecheck + bundle de produção em dist/
 npm run preview    # serve o bundle gerado
 ```
 
+## Deploy na Vercel
+
+O repositório já vem configurado — o [`vercel.json`](vercel.json) fixa build,
+saída, rewrites, cache e headers de segurança, então não há nada para ajustar
+no painel.
+
+**Pelo painel (recomendado):**
+
+1. [vercel.com/new](https://vercel.com/new) → importe `viniking58/Pim-3`.
+2. Não mude nada nas configurações: o `vercel.json` já define
+   `npm ci` + `npm run build` + saída em `dist`.
+3. **Deploy.**
+
+⚠️ **Atenção à branch de produção.** A Vercel publica em produção a partir da
+branch principal do repositório (`main`). Como o site está em
+`claude/p1-motorsports-premium-site-pj6nu4`, você tem duas opções:
+
+- abrir um pull request e fazer o merge na `main` — o caminho normal; ou
+- em *Settings → Git → Production Branch*, apontar para
+  `claude/p1-motorsports-premium-site-pj6nu4`.
+
+Sem isso, essa branch só gera **Preview Deployments** (que já são links
+funcionais e ótimos para revisar, mas não são o domínio de produção).
+
+**Pelo terminal:**
+
+```bash
+npm i -g vercel
+vercel login
+vercel        # cria o projeto e publica um preview
+vercel --prod # publica em produção
+```
+
+### O que o `vercel.json` faz
+
+| Ajuste | Por quê |
+| --- | --- |
+| `installCommand: npm ci` | Instala exatamente o que está no `package-lock.json`, sem resolver versões de novo — build reprodutível. |
+| `rewrites` para `/index.html` | Qualquer rota cai na página. A Vercel serve o arquivo estático primeiro, então os assets não são afetados. |
+| `Cache-Control` imutável em `/assets/*` | O Vite põe hash no nome de cada arquivo, então eles podem ser cacheados por um ano; o `index.html` continua sendo revalidado a cada visita. |
+| CSP + `nosniff` + `Referrer-Policy` + `Permissions-Policy` | Headers de segurança. A CSP libera o Google Fonts e o `blob:` que o three.js usa, e mantém `style-src 'unsafe-inline'` porque o React aplica estilos via atributo `style`. |
+
+Os headers foram testados servindo o `dist/` com exatamente essas regras:
+zero violações de CSP, WebGL ativo e as animações do Motion intactas.
+
 ## Cores da marca
 
 **Todas as cores vivem em um único arquivo: [`src/styles/tokens.css`](src/styles/tokens.css).**
