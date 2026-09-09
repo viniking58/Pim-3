@@ -1,5 +1,12 @@
-import { useState } from 'react'
+import { Suspense, lazy, useRef, useState } from 'react'
+import { useScroll, useSpring, useInView } from 'motion/react'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
+
+// A cena de fundo carrega três.js inteiro. Mantê-la fora do carregamento
+// inicial preserva o primeiro paint: a página aparece, a cena entra depois.
+const Backdrop = lazy(() =>
+  import('./three/Backdrop').then((module) => ({ default: module.Backdrop })),
+)
 import { Preloader } from './components/Preloader'
 import { Cursor } from './components/Cursor'
 import { ScrollProgress } from './components/ScrollProgress'
@@ -21,14 +28,26 @@ export default function App() {
   const [ready, setReady] = useState(false)
   useSmoothScroll()
 
+  // Progresso da página inteira, amortecido: é ele que dirige a câmera da
+  // cena de fundo, então precisa chegar lá já suavizado.
+  const { scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, { stiffness: 60, damping: 24, restDelta: 0.0005 })
+
+  // O configurador tem a própria cena WebGL. Enquanto ele está em tela, o
+  // fundo congela — duas cenas pesadas ao mesmo tempo derrubam o frame rate.
+  const configuratorRef = useRef<HTMLDivElement>(null)
+  const configuratorVisible = useInView(configuratorRef, { margin: '20% 0px' })
+
   return (
     <>
       <Preloader onDone={() => setReady(true)} />
       <Cursor />
       <ScrollProgress />
       <SectionTransition />
+      <Suspense fallback={null}>
+        <Backdrop progress={progress} active={!configuratorVisible} />
+      </Suspense>
       <div className="grain" aria-hidden="true" />
-      <div className="vignette" aria-hidden="true" />
 
       <a className="skip-link" href="#linha">
         Ir para o conteúdo
@@ -40,7 +59,9 @@ export default function App() {
         <Hero />
         <BrandTicker />
         <Fleet />
-        <Configurator />
+        <div ref={configuratorRef}>
+          <Configurator />
+        </div>
         <Showcase />
         <Manifesto />
         <Services />

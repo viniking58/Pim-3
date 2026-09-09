@@ -1,6 +1,13 @@
 main {
   position: relative;
-  z-index: 0;
+  z-index: 1;
+}
+
+/* As seções deixam a cena de fundo aparecer entre os blocos de conteúdo. */
+main > *,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 .skip-link {

@@ -10,10 +10,12 @@ export function useSmoothScroll() {
     if (reduced) return
 
     const lenis = new Lenis({
-      duration: 1.15,
+      // Inércia mais longa: o site deve deslizar, não saltar linha a linha.
+      duration: 1.5,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 1.6,
-      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
+      wheelMultiplier: 0.9,
+      lerp: 0.08,
     })
 
     let frame = 0
@@ -31,7 +33,7 @@ export function useSmoothScroll() {
       const el = document.querySelector(id)
       if (!el) return
       event.preventDefault()
-      lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.4 })
+      lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.8 })
     }
 
     document.addEventListener('click', onAnchor)

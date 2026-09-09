@@ -1,7 +1,8 @@
 .ticker {
   padding-block: 1.15rem;
   border-block: 1px solid var(--line);
-  background: linear-gradient(90deg, var(--ink-900), var(--ink-800), var(--ink-900));
+  background: linear-gradient(90deg, rgb(5 6 9 / 0.8), rgb(12 14 19 / 0.72), rgb(5 6 9 / 0.8));
+  backdrop-filter: blur(6px);
 }
 
 .ticker__item {

@@ -1,8 +1,8 @@
 .contact {
   position: relative;
   background:
-    radial-gradient(60% 50% at 84% 12%, rgb(255 45 24 / 0.14), transparent 66%),
-    var(--ink-850);
+    radial-gradient(60% 50% at 84% 12%, rgb(255 45 24 / 0.16), transparent 66%),
+    rgb(8 9 12 / 0.82);
 }
 
 .contact__inner {

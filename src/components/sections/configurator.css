@@ -3,7 +3,7 @@
   background:
     radial-gradient(60% 50% at 20% 0%, rgb(0 163 224 / 0.1), transparent 62%),
     radial-gradient(50% 45% at 88% 30%, rgb(255 45 24 / 0.1), transparent 66%),
-    var(--ink-900);
+    rgb(5 6 9 / 0.9);
 }
 
 .configurator__title {

@@ -28,7 +28,7 @@ html.lenis body {
 }
 
 body {
-  background: var(--bg);
+  background: var(--ink-900);
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--fs-body);
@@ -210,14 +210,6 @@ h3 {
   33% { transform: translate(-3%, 2%); }
   66% { transform: translate(2%, -3%); }
   100% { transform: translate(0, 0); }
-}
-
-.vignette {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  background: radial-gradient(120% 90% at 50% 40%, transparent 45%, rgb(0 0 0 / 0.55) 100%);
 }
 
 /* --- Preferência por menos movimento ------------------------------------- */

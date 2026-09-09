@@ -2,7 +2,7 @@
   position: relative;
   padding-top: clamp(3.5rem, 8vw, 6rem);
   border-top: 1px solid var(--line);
-  background: var(--ink-900);
+  background: rgb(5 6 9 / 0.86);
   overflow: hidden;
 }
 
