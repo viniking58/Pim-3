@@ -1,0 +1,22 @@
+{
+  "name": "accuracy-automation-reel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reel de identidade visual da Accuracy Automation com mockups 3D realistas, gerado em JavaScript (three.js + Web Audio).",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs --watch",
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "playwright": "^1.56.0"
+  },
+  "optionalDependencies": {
+    "ffmpeg-static": "^5.2.0"
+  }
+}
