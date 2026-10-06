@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACC Drive Insight — Laptop Mockup</title>
+<style>
+@font-face{font-family:"Archivo";src:url(data:font/woff2;base64,{{FONT_ARCHIVO}}) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-style:normal}
+@font-face{font-family:"Instrument Serif";src:url(data:font/woff2;base64,{{FONT_INSTRUMENT_ITALIC}}) format("woff2");font-weight:400;font-style:italic}
+@font-face{font-family:"JetBrains Mono";src:url(data:font/woff2;base64,{{FONT_JBMONO}}) format("woff2");font-weight:100 800;font-style:normal}
+:root{--glow:255,91,31}
+html,body{margin:0;background:#070708;overflow:hidden}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#1a1a1c 0%,#151517 38%,#111112 43.5%,#141415 45%,#0f0f10 72%,#09090a 100%);perspective:1500px;perspective-origin:50% 43%;transform-origin:0 0}
+#glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 32% at 52% 44%,rgba(var(--glow),.30),rgba(var(--glow),0) 70%)}
+#floorglow{position:absolute;inset:0;background:radial-gradient(ellipse 85% 26% at 50% 80%,rgba(var(--glow),.13),rgba(var(--glow),0) 70%)}
+#world{position:absolute;left:540px;top:1010px;width:0;height:0;transform-style:preserve-3d}
+#world > *{position:absolute;transform-style:preserve-3d}
+.lid{left:-490px;top:-612px;width:980px;height:612px;transform-origin:50% 100%;border-radius:22px 22px 6px 6px;background:#0c0c0d;box-shadow:inset 0 0 0 1.5px #2b2b2e}
+.lid.front{transform:translateY(-6px) rotateX(11deg)}
+.lid.reflect{transform:translateY(6px) scaleY(-1) rotateX(11deg);opacity:.42;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 45%,#000 100%);mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 45%,#000 100%)}
+.lid canvas{position:absolute;left:24px;top:24px;width:932px;height:524px;border-radius:3px}
+.lid .cam{position:absolute;left:50%;top:10px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#1d1d20}
+.lid .chin{position:absolute;left:0;right:0;bottom:0;height:64px;border-radius:0 0 6px 6px;background:linear-gradient(#0c0c0d,#111113)}
+#base{left:-500px;top:-6px;width:1000px;height:660px;transform-origin:50% 0;transform:rotateX(90deg);border-radius:6px 6px 26px 26px;background:linear-gradient(180deg,#2b2b2e,#232326 40%,#1c1c1f);box-shadow:inset 0 0 0 1.5px #3a3a3e}
+#base .kb{position:absolute;left:70px;right:70px;top:46px;height:300px;border-radius:8px;background-color:#111113;background-image:repeating-linear-gradient(90deg,transparent 0 50px,#1f1f22 50px 58px),repeating-linear-gradient(0deg,transparent 0 50px,#1f1f22 50px 58px);box-shadow:inset 0 0 0 6px #1f1f22}
+#base .pad{position:absolute;left:50%;width:420px;margin-left:-210px;top:380px;height:240px;border-radius:14px;background:#262629;box-shadow:inset 0 0 0 1.5px #343438}
+#base .lit{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(var(--glow),.34),rgba(var(--glow),.08) 45%,rgba(var(--glow),0) 80%)}
+#edge{left:-500px;top:-6px;width:1000px;height:16px;transform-origin:50% 0;transform:translateZ(660px);border-radius:0 0 12px 12px;background:linear-gradient(#2a2a2d,#131315)}
+#caption{position:absolute;left:70px;top:240px;width:900px;display:flex;align-items:center;gap:6px;transform:rotate(4deg);transform-origin:0 50%}
+#caption svg{flex:0 0 auto;width:150px;height:150px;margin-right:-8px;margin-top:-50px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
+#caption span{font:700 50px/1.1 "Archivo",sans-serif;color:#fff;letter-spacing:-.5px;text-shadow:0 2px 10px rgba(0,0,0,.55)}
+body.nocap #caption{display:none}
+#hint{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);font:500 12px "JetBrains Mono",monospace;color:#999}
+body.render #hint{display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="glow"></div>
+  <div id="world">
+    <div class="lid reflect"><canvas id="rc" width="960" height="540"></canvas></div>
+    <div id="base"><div class="kb"></div><div class="pad"></div><div class="lit"></div></div>
+    <div id="edge"></div>
+    <div class="lid front"><div class="chin"></div><div class="cam"></div><canvas id="sc" width="1920" height="1080"></canvas></div>
+  </div>
+  <div id="floorglow"></div>
+  <div id="caption">
+    <svg viewBox="-60 -60 120 120" aria-hidden="true"><circle r="58" fill="#FF5B1F"/><path d="M-26.9 26.9A38 38 0 1 1 26.9 26.9" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M0 0L23 -10" stroke="#150A05" stroke-width="9" stroke-linecap="round"/><circle r="7" fill="#fff"/></svg>
+    <span>ACC Drive Insight<br>em movimento</span>
+  </div>
+</div>
+<div id="hint">mockup vertical · clique para play</div>
+<script>
+{{REEL_JS}}
+</script>
+<script>
+(() => {
+  const params = new URLSearchParams(location.search);
+  const RENDER = params.has('render');
+  if (params.get('caption') === '0') document.body.classList.add('nocap');
+  const sc = document.getElementById('sc'), sctx = sc.getContext('2d');
+  const rc = document.getElementById('rc'), rctx = rc.getContext('2d');
+  const probe = document.createElement('canvas'); probe.width = probe.height = 6;
+  const pctx = probe.getContext('2d', { willReadFrequently: true });
+  const world = document.getElementById('world'), stage = document.getElementById('stage');
+  let glow = [255, 91, 31];
+
+  function frame(t) {
+    REEL.draw(sctx, t, 1);
+    rctx.filter = 'blur(3px)';
+    rctx.drawImage(sc, 0, 0, rc.width, rc.height);
+    pctx.drawImage(sc, 0, 0, 6, 6);
+    const d = pctx.getImageData(0, 0, 6, 6).data, avg = [0, 0, 0];
+    for (let i = 0; i < d.length; i += 4) for (let k = 0; k < 3; k++) avg[k] += d[i + k] / 36;
+    // ease the room light toward the screen colour, like a camera's exposure
+    glow = RENDER && t === 0 ? avg : glow.map((v, k) => v + (avg[k] - v) * 0.35);
+    stage.style.setProperty('--glow', glow.map(Math.round).join(','));
+    // slow dolly + a little handheld drift
+    const yaw = 25 - 6 * (t / REEL.TOTAL) + Math.sin(t * 0.9) * 0.6;
+    const pitch = Math.sin(t * 0.7 + 1) * 0.35;
+    const z = -110 + 70 * (t / REEL.TOTAL);
+    world.style.transform = `translateZ(${z}px) translateX(${-30 + Math.sin(t * 0.5) * 4}px) rotateX(${pitch}deg) rotateY(${yaw}deg)`;
+  }
+
+  const ready = REEL.fontsReady();
+  if (RENDER) {
+    document.body.classList.add('render');
+    let last = -1;
+    // Frames are rendered in order, so let the light smoothing settle on seeks.
+    window.__reel = { TOTAL: REEL.TOTAL, ready, dom: true, frame(t) { if (t < last || t - last > 0.1) { for (let k = 4; k >= 1; k--) frame(Math.max(0, t - k / 60)); } frame(t); last = t; return null; } };
+    return;
+  }
+  const fit = () => { const k = Math.min(innerWidth / 1080, innerHeight / 1920); stage.style.transform = `scale(${k})`; };
+  addEventListener('resize', fit); fit();
+  let playing = false, t0 = 0, off = 0;
+  addEventListener('click', () => { playing = !playing; if (playing) t0 = performance.now() - off * 1000; else off = (performance.now() - t0) / 1000; });
+  ready.then(() => (function tick() {
+    let t = playing ? (performance.now() - t0) / 1000 : off;
+    if (t >= REEL.TOTAL) { t0 = performance.now(); t = 0; }
+    frame(playing || t ? t : 3.9);
+    requestAnimationFrame(tick);
+  })());
+})();
+</script>
+</body>
+</html>

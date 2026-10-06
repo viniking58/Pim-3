@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACC Drive Insight — Motion Reel</title>
+<style>
+@font-face{font-family:"Archivo";src:url(data:font/woff2;base64,{{FONT_ARCHIVO}}) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-style:normal}
+@font-face{font-family:"Instrument Serif";src:url(data:font/woff2;base64,{{FONT_INSTRUMENT_ITALIC}}) format("woff2");font-weight:400;font-style:italic}
+@font-face{font-family:"JetBrains Mono";src:url(data:font/woff2;base64,{{FONT_JBMONO}}) format("woff2");font-weight:100 800;font-style:normal}
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+body{display:grid;place-items:center}
+body.playing{cursor:none}
+canvas{display:block}
+#hint{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);max-width:calc(100vw - 32px);box-sizing:border-box;text-align:center;font:500 12px/1.5 "JetBrains Mono",monospace;letter-spacing:.08em;color:#c9c9c9;background:rgba(18,18,20,.88);padding:10px 16px;border-radius:999px;transition:opacity .5s}
+body.playing #hint{opacity:0;pointer-events:none}
+body.render #hint{display:none}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hint">CLIQUE ou ESPAÇO = play/pausa · F = tela cheia · R = reiniciar · M = som · L = loop</div>
+<audio id="music" preload="auto" src="{{AUDIO}}"></audio>
+<script>
+{{REEL_JS}}
+</script>
+<script>
+(() => {
+  const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  const audio = document.getElementById('music');
+  const params = new URLSearchParams(location.search);
+  const RENDER = params.has('render');
+  const { W, H, TOTAL } = REEL;
+  let scale = 1;
+
+  function resize() {
+    if (RENDER) {
+      scale = parseFloat(params.get('scale') || '1');
+      cv.width = W * scale; cv.height = H * scale; cv.style.width = W + 'px'; cv.style.height = H + 'px';
+      return;
+    }
+    const k = Math.min(innerWidth / W, innerHeight / H), dpr = Math.min(devicePixelRatio || 1, 2);
+    const cw = Math.round(W * k), ch = Math.round(H * k);
+    cv.style.width = cw + 'px'; cv.style.height = ch + 'px';
+    cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
+    scale = cv.width / W;
+  }
+
+  if (RENDER) {
+    document.body.classList.add('render');
+    resize();
+    window.__reel = {
+      TOTAL,
+      ready: REEL.fontsReady(),
+      frame(t, type = 'image/png', q) { REEL.draw(ctx, t, scale); return cv.toDataURL(type, q); },
+    };
+    return;
+  }
+
+  // ---- live player ----
+  let playing = false, useAudio = !!audio.getAttribute('src'), loop = true;
+  let offset = 0, startedAt = 0;
+  const now = () => {
+    if (!playing) return offset;
+    if (useAudio && !audio.paused && audio.readyState >= 2) return audio.currentTime;
+    return offset + (performance.now() - startedAt) / 1000;
+  };
+  function play(from = offset) {
+    offset = from; startedAt = performance.now(); playing = true;
+    document.body.classList.add('playing');
+    if (useAudio) { try { audio.currentTime = from; } catch (e) {} audio.play().catch(() => { useAudio = false; }); }
+  }
+  function pause() { offset = now(); playing = false; audio.pause(); document.body.classList.remove('playing'); }
+  const toggle = () => (playing ? pause() : play(offset >= TOTAL - 0.05 ? 0 : offset));
+
+  addEventListener('resize', resize);
+  addEventListener('click', toggle);
+  addEventListener('keydown', e => {
+    if (e.code === 'Space') { e.preventDefault(); toggle(); }
+    else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {}); }
+    else if (e.key === 'r' || e.key === 'R') play(0);
+    else if (e.key === 'm' || e.key === 'M') audio.muted = !audio.muted;
+    else if (e.key === 'l' || e.key === 'L') loop = !loop;
+    else if (e.key === 'ArrowRight') { const t = Math.min(TOTAL - 0.05, now() + 1); playing ? play(t) : (offset = t); }
+    else if (e.key === 'ArrowLeft') { const t = Math.max(0, now() - 1); playing ? play(t) : (offset = t); }
+  });
+
+  resize();
+  REEL.fontsReady().then(() => {
+    offset = 0;
+    (function tick() {
+      let t = now();
+      if (t >= TOTAL) {
+        if (loop && playing) { play(0); t = 0; }
+        else { if (playing) pause(); offset = TOTAL - 0.001; t = offset; }
+      }
+      // Before the first play, park on the title card as a poster frame.
+      REEL.draw(ctx, !playing && t === 0 ? 3.9 : t, scale);
+      requestAnimationFrame(tick);
+    })();
+  });
+})();
+</script>
+</body>
+</html>
